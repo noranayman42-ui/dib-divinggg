@@ -996,9 +996,11 @@ html[dir="rtl"] .qb select{ background-position:20px 55%, 14px 55%; }
 .qb select:focus-visible, .qb input:focus-visible{ outline:2px solid var(--sand); outline-offset:2px; }
   .qb .dwrap{ position:relative; display:block; }
   .qb .dwrap::after{
-    content:"/ /"; position:absolute; inset-inline-start:14px; top:50%;
-    transform:translateY(-50%); color:#fff; font-weight:600; font-size:16px;
+    content:"/ /"; position:absolute; inset-inline-start:50%; top:50%;
+    transform:translate(-50%,-50%);
+    color:#fff; font-weight:600; font-size:16px;
     pointer-events:none; direction:ltr; opacity:.85;
+    width:max-content; text-align:center;
   }
   .qb .dwrap:has(input:not(.empty))::after{ display:none; }
   .qb input.empty,
@@ -2266,8 +2268,36 @@ function initRest(){
     $('#qbDate').lang = cur;
   }
   new MutationObserver(apply).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
-  var _d=$('#qbDate'); function _sync(){ _d.classList.toggle('empty', !_d.value); } ['input','change','blur'].forEach(function(e){ _d.addEventListener(e,_sync); }); _sync();
-  var t=new Date(); $('#qbDate').min = t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
+  var _d=$('#qbDate');
+  function _sync(){ _d.classList.toggle('empty', !_d.value); }
+  ['input','change','blur'].forEach(function(e){ _d.addEventListener(e,_sync); });
+  _sync();
+  // Open the date picker when clicking anywhere in the whole date field.
+  var _dw = _d.closest('.dwrap');
+  var _dateLabel = _d.closest('label');
+  function _openDatePicker(e){
+    if(e) e.preventDefault();
+    _d.focus();
+    if(typeof _d.showPicker === 'function'){
+      try { _d.showPicker(); return; } catch(err) {}
+    }
+    // Fallback for browsers without showPicker().
+    try { _d.dispatchEvent(new MouseEvent('click', {bubbles:true})); } catch(err) {}
+  }
+  if(_dw){
+    _dw.style.cursor='pointer';
+    _dw.addEventListener('click', _openDatePicker);
+  }
+  if(_dateLabel){
+    _dateLabel.style.cursor='pointer';
+    _dateLabel.addEventListener('click', function(e){
+      if(e.target === _d) return;
+      _openDatePicker(e);
+    });
+  }
+
+  var t=new Date();
+ $('#qbDate').min = t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
   apply();
   $('#qbSend').addEventListener('click', function(){
     var d=T[cur], ci=+$('#qbCourse').value, pi=+$('#qbPlace').value;
