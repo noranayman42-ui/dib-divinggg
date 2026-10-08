@@ -942,7 +942,7 @@ section.dibchat{ padding:0 0 env(safe-area-inset-bottom,0px); }
 .dibchat .dc-form{ padding:8px 10px 6px; }
 .dibchat .dc-input:focus-visible{ outline-offset:-2px; }
 
-/* ================= v4 additions: rays, wave, depth gauge, stats, quick-book ================= */
+/* ================= v4 additions: rays, wave ================= */
 .hero > .rays{
   position:absolute; inset:-8% -25% 38% -25%; z-index:0; pointer-events:none; mix-blend-mode:screen;
   background:repeating-linear-gradient(104deg, rgba(160,235,255,0) 0 34px, rgba(160,235,255,.13) 58px, rgba(160,235,255,0) 96px);
@@ -955,77 +955,10 @@ section.dibchat{ padding:0 0 env(safe-area-inset-bottom,0px); }
 .wave svg.w2{ animation-duration:17s; animation-direction:reverse; opacity:.7; }
 @keyframes waveMove{ to{ transform:translateX(-50%); } }
 
-/* depth gauge */
-.depth{
-  position:fixed; z-index:60; top:50%; transform:translateY(-50%);
-  inset-inline-end:max(6px, calc((100vw - 520px) / 2 + 6px));
-  height:min(42vh,320px); width:56px; pointer-events:none;
-  opacity:0; transition:opacity .35s ease; direction:ltr;
-}
-.depth.show{ opacity:1; }
-.depth .track{
-  position:absolute; right:6px; top:0; bottom:0; width:4px; border-radius:4px;
-  background:linear-gradient(180deg,#7df0ff,#1646a8 55%,#030c22);
-  box-shadow:0 0 0 1px rgba(255,255,255,.25);
-}
-.depth .mark{ position:absolute; right:0; top:var(--p,0%); transform:translateY(-50%); display:flex; align-items:center; gap:4px; }
-.depth .pill{
-  font:800 .74rem/1 var(--f-body); color:#2a1600; background:var(--sun-grad);
-  padding:5px 8px; border-radius:99px; box-shadow:0 4px 14px rgba(0,0,0,.4); white-space:nowrap;
-}
-.depth .dot{ width:12px; height:12px; border-radius:50%; background:#fff; border:3px solid #ff9d1c; box-shadow:0 0 0 3px rgba(255,157,28,.3); }
-@media (max-width:360px){ .depth{ display:none; } }
-
-/* stats */
-.stats{ padding:30px 22px 6px; }
-.stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.stat{
-  text-align:center; padding:18px 10px 16px; border-radius:18px;
-  background:linear-gradient(160deg, rgba(31,209,255,.16), rgba(255,255,255,.04));
-  border:1px solid rgba(125,240,255,.3);
-}
-.stat b{
-  display:block; font-family:var(--f-display); font-weight:800; font-size:2.1rem; line-height:1.1;
-  background:var(--sun-grad); -webkit-background-clip:text; background-clip:text; color:transparent;
-}
-html[lang="ar"] .stat b{ font-family:var(--f-ar-display); font-weight:400; font-size:2.6rem; }
-.stat span{ display:block; margin-top:6px; font-weight:700; font-size:.86rem; color:#d6e6ff; line-height:1.35; }
-
-/* quick book */
-.book{ background:linear-gradient(180deg, rgba(8,28,84,.5), rgba(14,46,128,.6)); }
-.qb{
-  display:flex; flex-direction:column; gap:14px; padding:18px; border-radius:20px;
-  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.2); box-shadow:0 16px 40px rgba(0,0,0,.3);
-}
-.qb label{ display:flex; flex-direction:column; gap:6px; font-weight:700; font-size:.85rem; color:#ffe7a6; }
-.qb select, .qb input{
-  font:inherit; font-size:16px; font-weight:600; color:#fff; width:100%;
-  background:rgba(2,8,22,.55); border:1.5px solid rgba(125,240,255,.35); border-radius:14px; padding:12px 14px;
-  color-scheme:dark; appearance:none; -webkit-appearance:none; min-height:48px;
-}
-.qb select{
-  background-image:linear-gradient(45deg,transparent 50%,#ffc83d 50%),linear-gradient(135deg,#ffc83d 50%,transparent 50%);
-  background-position:calc(100% - 20px) 55%, calc(100% - 14px) 55%; background-size:6px 6px; background-repeat:no-repeat;
-}
-html[dir="rtl"] .qb select{ background-position:20px 55%, 14px 55%; }
-.qb select option{ background:#0a1f52; color:#fff; }
-.qb select:focus-visible, .qb input:focus-visible{ outline:2px solid var(--sand); outline-offset:2px; }
-.qb .row2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.qb-send{
-  display:flex; align-items:center; justify-content:center; gap:10px; width:100%; min-height:52px;
-  border:0; border-radius:16px; cursor:pointer; font:inherit; font-weight:800; font-size:1rem;
-  background:var(--wa-grad); color:#03210f; box-shadow:0 10px 26px rgba(37,211,102,.38);
-}
-.qb-send svg{ width:22px; height:22px; }
-.qb-send:active{ transform:scale(.98); }
-.qb-send:focus-visible{ outline:3px solid #fff; outline-offset:2px; }
-.qb-hint{ font-size:.8rem; color:#9db8e6; text-align:center; }
-@media (prefers-reduced-motion: reduce){ .rays,.wave svg{ animation:none; } .depth{ transition:none; } }
+@media (prefers-reduced-motion: reduce){ .rays,.wave svg{ animation:none; } }
 
 .hero{ overflow:hidden; }
 
-.qb select{ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffc83d' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-size:16px 16px; background-position:calc(100% - 14px) 50%; padding-inline-end:40px; }
-html[dir="rtl"] .qb select{ background-position:14px 50%; }
 
 /* ---- smaller chat window ---- */
 section.dibchat{
@@ -1157,16 +1090,6 @@ With Us</h1>
       <span data-i18n="more">Learn more</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
     </a>
-  </div>
-
-  <!-- STATS -->
-  <div class="stats">
-    <div class="stat-grid">
-      <div class="stat"><b data-to="3">3</b><span data-st="0">Dive cities</span></div>
-      <div class="stat"><b data-to="4">4</b><span data-st="1">Certified courses</span></div>
-      <div class="stat"><b data-to="3">3</b><span data-st="2">Global agencies</span></div>
-      <div class="stat"><b data-to="24" data-suf="h">24h</b><span data-st="3">Online booking</span></div>
-    </div>
   </div>
 
   <!-- VIDEO -->
@@ -1394,28 +1317,6 @@ With Us</h1>
         <summary><span data-i18n="q6"></span></summary>
         <p data-i18n="a6"></p>
       </details>
-    </div>
-  </section>
-
-  <!-- QUICK BOOK -->
-  <section class="book" id="book">
-    <div class="section-head reveal">
-      <div class="tag" id="qbTag">Quick booking</div>
-      <h2 id="qbH">Book on WhatsApp</h2>
-      <p class="sub" id="qbSub"></p>
-    </div>
-    <div class="qb reveal">
-      <label><span id="qbL1">Service</span><select id="qbCourse"></select></label>
-      <label><span id="qbL2">Location</span><select id="qbPlace"></select></label>
-      <div class="row2">
-        <label><span id="qbL3">People</span><input id="qbPeople" type="number" inputmode="numeric" min="1" max="30" value="1"></label>
-        <label><span id="qbL4">Date</span><input id="qbDate" type="date"></label>
-      </div>
-      <button class="qb-send" id="qbSend" type="button">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2zm5.8 14.1c-.24.68-1.42 1.3-1.96 1.35-.5.05-.97.23-3.27-.68-2.77-1.1-4.55-3.94-4.69-4.12-.14-.19-1.12-1.49-1.12-2.84s.7-2.01.95-2.29c.25-.27.54-.34.72-.34h.52c.17 0 .39-.06.61.46.23.55.78 1.9.85 2.04.07.14.11.3.02.48-.09.19-.14.3-.28.46-.14.16-.29.36-.41.48-.14.14-.28.29-.12.57.16.27.72 1.18 1.55 1.91 1.06.94 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.7-.82.89-1.1.19-.28.37-.23.62-.14.26.09 1.6.75 1.88.89.28.14.46.21.53.32.07.12.07.67-.17 1.35z"/></svg>
-        <span id="qbBtn">Send on WhatsApp</span>
-      </button>
-      <p class="qb-hint" id="qbHint"></p>
     </div>
   </section>
 
@@ -2103,107 +2004,6 @@ function initRest(){
 })();
 </script>
 
-<script>
-/* ================= v4: depth gauge · counters · quick booking ================= */
-(function(){
-  'use strict';
-  var WA='201286577877';
-  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var T = {
-    ar:{unit:'م', suf:'س', st:['مدن نغوص فيها','دورات معتمدة','جهات اعتماد دولية','حجز أونلاين'],
-      tag:'حجز سريع', h:'احجز عبر واتساب', sub:'اختر ما يناسبك وسنفتح لك واتساب برسالة جاهزة للإرسال.',
-      l:['الخدمة','المكان','عدد الأشخاص','التاريخ'], btn:'أرسل عبر واتساب', hint:'المواعيد تتأكد معنا على واتساب بعد الإرسال.',
-      course:['تجربة غوص تعريفية','Open Water Diver','Advanced Open Water','Rescue Diver','Divemaster','رحلة غوص يومية','الغوص الليلي','التصوير تحت الماء'],
-      place:['الإسكندرية','شرم الشيخ','الغردقة'],
-      msg:function(c,pl,n,d){return 'مرحباً DIB Diving 👋\nأرغب في الحجز:\n• الخدمة: '+c+'\n• المكان: '+pl+'\n• عدد الأشخاص: '+n+(d?'\n• التاريخ: '+d:'');}},
-    en:{unit:'m', suf:'h', st:['Dive cities','Certified courses','Global agencies','Online booking'],
-      tag:'Quick booking', h:'Book on WhatsApp', sub:'Pick what suits you and we will open WhatsApp with a ready message.',
-      l:['Service','Location','People','Date'], btn:'Send on WhatsApp', hint:'We confirm the schedule with you on WhatsApp.',
-      course:['Discover Scuba Dive','Open Water Diver','Advanced Open Water','Rescue Diver','Divemaster','Daily dive trip','Night Dive','Underwater photography'],
-      place:['Alexandria','Sharm El Sheikh','Hurghada'],
-      msg:function(c,pl,n,d){return 'Hello DIB Diving 👋\nI would like to book:\n• Service: '+c+'\n• Location: '+pl+'\n• People: '+n+(d?'\n• Date: '+d:'');}},
-    ru:{unit:'м', suf:'ч', st:['Города для дайвинга','Сертифицированных курса','Международных агентства','Онлайн-бронирование'],
-      tag:'Быстрое бронирование', h:'Забронировать в WhatsApp', sub:'Выберите нужное — откроем WhatsApp с готовым сообщением.',
-      l:['Услуга','Место','Человек','Дата'], btn:'Отправить в WhatsApp', hint:'Расписание подтвердим с вами в WhatsApp.',
-      course:['Пробное погружение','Open Water Diver','Advanced Open Water','Rescue Diver','Divemaster','Ежедневный выезд','Ночное погружение','Подводная съёмка'],
-      place:['Александрия','Шарм-эль-Шейх','Хургада'],
-      msg:function(c,pl,n,d){return 'Здравствуйте, DIB Diving 👋\nХочу забронировать:\n• Услуга: '+c+'\n• Место: '+pl+'\n• Человек: '+n+(d?'\n• Дата: '+d:'');}},
-    de:{unit:'m', suf:' Std', st:['Tauchstädte','Zertifizierte Kurse','Int. Verbände','Online buchbar'],
-      tag:'Schnellbuchung', h:'Per WhatsApp buchen', sub:'Wähle aus, was passt — wir öffnen WhatsApp mit einer fertigen Nachricht.',
-      l:['Leistung','Ort','Personen','Datum'], btn:'Per WhatsApp senden', hint:'Den Termin bestätigen wir mit dir per WhatsApp.',
-      course:['Schnuppertauchen','Open Water Diver','Advanced Open Water','Rescue Diver','Divemaster','Tägliche Tauchfahrt','Nachttauchgang','Unterwasserfotografie'],
-      place:['Alexandria','Scharm El-Scheich','Hurghada'],
-      msg:function(c,pl,n,d){return 'Hallo DIB Diving 👋\nIch möchte buchen:\n• Leistung: '+c+'\n• Ort: '+pl+'\n• Personen: '+n+(d?'\n• Datum: '+d:'');}},
-    it:{unit:'m', suf:'h', st:['Città di immersione','Corsi certificati','Enti internazionali','Prenotazione online'],
-      tag:'Prenotazione rapida', h:'Prenota su WhatsApp', sub:'Scegli ciò che ti serve e apriremo WhatsApp con un messaggio pronto.',
-      l:['Servizio','Luogo','Persone','Data'], btn:'Invia su WhatsApp', hint:'Confermiamo gli orari con te su WhatsApp.',
-      course:['Battesimo del mare','Open Water Diver','Advanced Open Water','Rescue Diver','Divemaster','Uscita giornaliera','Immersione notturna','Fotografia subacquea'],
-      place:['Alessandria','Sharm el-Sheikh','Hurghada'],
-      msg:function(c,pl,n,d){return 'Ciao DIB Diving 👋\nVorrei prenotare:\n• Servizio: '+c+'\n• Luogo: '+pl+'\n• Persone: '+n+(d?'\n• Data: '+d:'');}}
-  };
-  var EN_C = T.en.course, EN_P = T.en.place;
-  var $=function(s){return document.querySelector(s);};
-  var cur='en';
 
-  function lang(){ var l=(document.documentElement.lang||'en').slice(0,2); return T[l]?l:'en'; }
-
-  function fillSelect(sel, list){
-    var keep = sel.selectedIndex; sel.innerHTML='';
-    list.forEach(function(t,i){ var o=document.createElement('option'); o.value=i; o.textContent=t; sel.appendChild(o); });
-    sel.selectedIndex = keep>0?keep:0;
-  }
-  function apply(){
-    cur = lang(); var d = T[cur];
-    document.querySelectorAll('[data-st]').forEach(function(el){ el.textContent = d.st[+el.dataset.st]; });
-    document.querySelectorAll('.stat b[data-suf]').forEach(function(b){ if(!b.dataset.run) b.textContent = b.dataset.to + d.suf; });
-    $('#qbTag').textContent=d.tag; $('#qbH').textContent=d.h; $('#qbSub').textContent=d.sub;
-    ['#qbL1','#qbL2','#qbL3','#qbL4'].forEach(function(id,i){ $(id).textContent=d.l[i]; });
-    $('#qbBtn').textContent=d.btn; $('#qbHint').textContent=d.hint;
-    fillSelect($('#qbCourse'), d.course); fillSelect($('#qbPlace'), d.place);
-    $('#qbDate').lang = cur;
-  }
-  new MutationObserver(apply).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
-  var today=new Date(); var iso=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
-  $('#qbDate').min = iso;
-  apply();
-
-  $('#qbSend').addEventListener('click', function(){
-    var d=T[cur], ci=+$('#qbCourse').value, pi=+$('#qbPlace').value;
-    var c = d.course[ci] + (cur==='en' ? '' : ' (' + EN_C[ci] + ')');
-    var pl = d.place[pi] + (cur==='en' ? '' : ' (' + EN_P[pi] + ')');
-    var n = Math.max(1, Math.min(30, parseInt($('#qbPeople').value,10)||1));
-    var text = d.msg(c, pl, n, $('#qbDate').value);
-    window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(text), '_blank', 'noopener');
-  });
-
-  /* counters */
-  function run(b){
-    if(b.dataset.run) return; b.dataset.run='1';
-    var to=+b.dataset.to, suf=b.dataset.suf?T[cur].suf:'';
-    if(reduce){ b.textContent=to+suf; return; }
-    var t0=performance.now(), dur=1100;
-    (function tick(t){ var k=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-k,3);
-      b.textContent=Math.round(to*e)+suf; if(k<1) requestAnimationFrame(tick); else b.dataset.run=''; })(t0);
-  }
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ run(e.target); io.unobserve(e.target); } }); },{threshold:.6});
-    document.querySelectorAll('.stat b').forEach(function(b){ io.observe(b); });
-  }
-
-  /* depth gauge */
-  var g=document.createElement('div'); g.className='depth'; g.setAttribute('aria-hidden','true');
-  g.innerHTML='<div class="track"></div><div class="mark"><span class="pill">0 m</span><span class="dot"></span></div>';
-  document.body.appendChild(g);
-  var mark=g.querySelector('.mark'), pill=g.querySelector('.pill'), hideT, ticking=false, MAX=40;
-  function upd(){
-    ticking=false;
-    var h=document.documentElement.scrollHeight-innerHeight, p=h>0?Math.min(1,Math.max(0,scrollY/h)):0;
-    mark.style.setProperty('--p',(p*100)+'%');
-    pill.style.direction=(cur==='ar'?'rtl':'ltr'); pill.textContent=Math.round(p*MAX)+' '+T[cur].unit;
-    g.classList.add('show'); clearTimeout(hideT); hideT=setTimeout(function(){ g.classList.remove('show'); },1400);
-  }
-  addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(upd); } },{passive:true});
-})();
-</script>
 </body>
 </html>
