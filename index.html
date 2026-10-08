@@ -610,6 +610,164 @@
     color:var(--foam); display:flex; align-items:center; justify-content:center; cursor:pointer;
   }
   .lb-close svg{ width:20px; height:20px; }
+
+/* ================= DIB AI CHAT ================= */
+.dibchat-launch{
+  position:fixed; z-index:90;
+  inset-inline-end:max(16px, calc((100vw - 520px) / 2 + 16px));
+  bottom:calc(18px + env(safe-area-inset-bottom,0px));
+  width:58px; height:58px; border-radius:50%;
+  border:1px solid rgba(234,246,250,.45);
+  background:linear-gradient(135deg, var(--teal), #1c8fa3);
+  color:#04141f; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; box-shadow:0 12px 30px rgba(0,0,0,.45);
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .15s ease, opacity .2s ease;
+}
+.dibchat-launch:active{ transform:scale(.94); }
+.dibchat-launch svg{ width:27px; height:27px; }
+.dibchat-launch:focus-visible, .dibchat-tip:focus-visible,
+.dc-chip:focus-visible, .dc-send:focus-visible, .dc-input:focus-visible, .dc-foot a:focus-visible{
+  outline:2px solid var(--teal-bright); outline-offset:2px;
+}
+@media (max-width:520px){
+  .dibchat-launch.hide-m{ opacity:0; pointer-events:none; }
+}
+
+.dibchat-tip{
+  position:fixed; z-index:90;
+  inset-inline-end:calc(max(16px, calc((100vw - 520px) / 2 + 16px)) + 70px);
+  bottom:calc(26px + env(safe-area-inset-bottom,0px));
+  max-width:min(230px, calc(100vw - 110px));
+  padding:10px 14px; border-radius:14px 14px 4px 14px;
+  background:var(--navy); color:var(--foam);
+  border:1px solid rgba(95,214,227,.5);
+  box-shadow:0 12px 28px rgba(0,0,0,.4);
+  font:inherit; font-size:.88rem; font-weight:600; line-height:1.5; text-align:start;
+  cursor:pointer; animation:dcTip .35s ease both;
+}
+html[dir="rtl"] .dibchat-tip{ border-radius:14px 14px 14px 4px; }
+.dibchat-tip[hidden]{ display:none; }
+@keyframes dcTip{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+
+.dibchat{
+  position:fixed; z-index:320;
+  inset-inline-end:max(12px, calc((100vw - 520px) / 2 + 12px));
+  bottom:calc(86px + env(safe-area-inset-bottom,0px));
+  width:min(380px, calc(100vw - 24px));
+  height:min(590px, calc(100vh - 120px));
+  height:min(590px, calc(100dvh - 120px));
+  display:flex; flex-direction:column;
+  background:var(--navy-deep);
+  border:1px solid rgba(51,184,201,.38);
+  border-radius:20px; overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.6);
+  opacity:0; transform:translateY(14px) scale(.98); visibility:hidden;
+  transition:opacity .2s ease, transform .2s ease, visibility 0s linear .2s;
+}
+.dibchat.open{ opacity:1; transform:none; visibility:visible; transition-delay:0s; }
+@media (max-width:520px){
+  .dibchat{
+    inset-inline:0; bottom:0; width:100%;
+    height:min(88vh, 680px); height:min(88dvh, 680px);
+    border-radius:22px 22px 0 0; border-bottom:0;
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+}
+
+.dc-head{
+  display:flex; align-items:center; gap:12px;
+  padding:14px 14px 12px 14px;
+  background:linear-gradient(135deg, rgba(51,184,201,.22), rgba(10,47,74,.9));
+  border-bottom:1px solid rgba(234,246,250,.12);
+}
+.dc-avatar{
+  width:40px; height:40px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(4,26,43,.55); border:1px solid rgba(95,214,227,.5); color:var(--teal-bright);
+}
+.dc-avatar svg{ width:22px; height:22px; }
+.dc-ht{ flex:1; min-width:0; }
+.dc-ht strong{ display:block; font-size:1rem; font-weight:700; line-height:1.3; }
+.dc-ht small{ display:block; color:#9fc6d4; font-size:.76rem; line-height:1.4; }
+
+.dc-log{
+  flex:1; overflow-y:auto; overscroll-behavior:contain;
+  padding:16px 14px 6px; display:flex; flex-direction:column; gap:10px;
+  scroll-behavior:smooth;
+}
+.dc-msg{
+  max-width:86%; padding:10px 13px; border-radius:16px;
+  font-size:.93rem; line-height:1.65; overflow-wrap:anywhere; word-break:break-word;
+  animation:dcIn .22s ease both;
+}
+@keyframes dcIn{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:none; } }
+.dc-msg.bot{
+  align-self:flex-start;
+  background:rgba(234,246,250,.07); border:1px solid rgba(234,246,250,.14);
+  border-end-start-radius:4px; color:var(--foam);
+}
+.dc-msg.user{
+  align-self:flex-end;
+  background:linear-gradient(135deg, var(--teal), #1c8fa3); color:#04141f; font-weight:500;
+  border-end-end-radius:4px;
+}
+.dc-msg a{ color:var(--teal-bright); text-decoration:underline; text-underline-offset:2px; font-weight:600; }
+.dc-msg.user a{ color:#04141f; }
+.dc-msg strong{ font-weight:700; }
+
+.dc-typing{ align-self:flex-start; display:flex; gap:5px; padding:13px 15px;
+  background:rgba(234,246,250,.07); border:1px solid rgba(234,246,250,.14);
+  border-radius:16px; border-end-start-radius:4px; }
+.dc-typing span{
+  width:7px; height:7px; border-radius:50%;
+  background:rgba(234,246,250,.22); border:1px solid rgba(234,246,250,.55);
+  animation:dcBub 1.1s ease-in-out infinite;
+}
+.dc-typing span:nth-child(2){ animation-delay:.16s; }
+.dc-typing span:nth-child(3){ animation-delay:.32s; }
+@keyframes dcBub{ 0%,70%,100%{ transform:translateY(0); opacity:.6; } 35%{ transform:translateY(-6px); opacity:1; } }
+
+.dc-chips{ display:flex; flex-wrap:wrap; gap:8px; padding:4px 14px 10px; }
+.dc-chips:empty{ display:none; }
+.dc-chip{
+  font:inherit; font-size:.82rem; font-weight:600; text-align:start; line-height:1.4;
+  padding:7px 12px; border-radius:999px; cursor:pointer;
+  background:rgba(51,184,201,.14); border:1px solid rgba(51,184,201,.45); color:var(--foam);
+}
+.dc-chip:active{ transform:scale(.97); }
+
+.dc-form{ display:flex; gap:8px; padding:10px 14px 8px; border-top:1px solid rgba(234,246,250,.1); }
+.dc-input{
+  flex:1; min-width:0; font:inherit; font-size:16px; color:var(--foam);
+  background:rgba(234,246,250,.08); border:1px solid rgba(234,246,250,.22);
+  border-radius:14px; padding:11px 13px;
+}
+.dc-input::placeholder{ color:#7fa6b6; }
+.dc-send{
+  width:46px; flex-shrink:0; border:0; border-radius:14px; cursor:pointer;
+  background:linear-gradient(135deg, var(--teal), #1c8fa3); color:#04141f;
+  display:flex; align-items:center; justify-content:center;
+}
+.dc-send svg{ width:20px; height:20px; }
+html[dir="rtl"] .dc-send svg{ transform:scaleX(-1); }
+.dc-send:disabled{ opacity:.45; cursor:default; }
+
+.dc-foot{
+  display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+  padding:0 16px 12px; font-size:.72rem; color:#7fa6b6; line-height:1.5;
+}
+.dc-foot a{ color:var(--teal-bright); font-weight:700; text-decoration:none; }
+.dc-foot a:hover{ text-decoration:underline; }
+
+html[lang="ar"] .dc-ht strong, html[lang="ar"] .dc-msg, html[lang="ar"] .dc-chip,
+html[lang="ar"] .dc-input, html[lang="ar"] .dibchat-tip{ font-family:'Cairo','Inter',sans-serif; }
+
+@media (prefers-reduced-motion: reduce){
+  .dibchat, .dibchat-launch, .dc-msg, .dibchat-tip{ transition:none; animation:none; }
+  .dc-typing span{ animation:none; }
+  .dc-log{ scroll-behavior:auto; }
+}
 </style>
 </head>
 <body>
@@ -1295,6 +1453,312 @@ function initRest(){
   }
   go(0); start();
 })();
+</script>
+
+<!-- ================= DIB AI CHAT ================= -->
+<button class="dibchat-launch" id="dcLaunch" type="button" aria-haspopup="dialog" aria-controls="dcPanel" aria-expanded="false" aria-label="Chat">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.5-4.6A8 8 0 1 1 21 12z"/><circle cx="9" cy="12" r=".6" fill="currentColor"/><circle cx="12.5" cy="12" r=".6" fill="currentColor"/><circle cx="16" cy="12" r=".6" fill="currentColor"/></svg>
+</button>
+<button class="dibchat-tip" id="dcTip" type="button" hidden></button>
+<section class="dibchat" id="dcPanel" role="dialog" aria-modal="false" aria-labelledby="dcTitle" aria-hidden="true" tabindex="-1">
+  <header class="dc-head">
+    <span class="dc-avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c2.5-3 4.5-3 7 0s4.5 3 7 0 4.5-3 6 0"/><path d="M2 18c2.5-3 4.5-3 7 0s4.5 3 7 0 4.5-3 6 0"/><circle cx="8" cy="6" r="1.2"/><circle cx="14" cy="4" r=".9"/></svg></span>
+    <div class="dc-ht"><strong id="dcTitle"></strong><small id="dcSub"></small></div>
+    <button class="x-btn" type="button" id="dcClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  </header>
+  <div class="dc-log" id="dcLog" role="log" aria-live="polite"></div>
+  <div class="dc-chips" id="dcChips"></div>
+  <form class="dc-form" id="dcForm" autocomplete="off">
+    <input class="dc-input" id="dcInput" type="text" maxlength="500" enterkeyhint="send">
+    <button class="dc-send" id="dcSend" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></button>
+  </form>
+  <div class="dc-foot"><a id="dcWa" href="#" target="_blank" rel="noopener"></a><span id="dcNote"></span></div>
+</section>
+
+<script>
+/* ================= DIB AI CHAT =================
+   1) Deploy worker.js (see instructions) and paste its URL into CHAT_ENDPOINT below.
+   2) Until then the chat still works in "basic mode": it answers from this page's own
+      content (courses, times, FAQ, shop) and hands over to WhatsApp for everything else. */
+(function(){
+  'use strict';
+
+  var CHAT_ENDPOINT = 'https://frosty-wood-f9a0.noranayman42.workers.dev/';            /* e.g. 'https://dib-chat.your-name.workers.dev' */
+  var WA_NUMBER     = '201286577877';
+  var PHONE_TXT     = '+20 128 657 7877';
+  var MAX_TURNS     = 10;
+
+  var UI = {
+    en:{ title:'DIB Diving Assistant', sub:'AI assistant · replies instantly', ph:'Type your question…', send:'Send',
+      open:'Open chat', close:'Close chat', tip:'Questions about diving? Ask me 👋',
+      hello:"Hi! I'm DIB Diving's AI assistant. Ask me about courses, trips, gear or underwater photography.",
+      chips:["Which courses do you offer?","What are the trip times?","How much does it cost?","I've never dived — can I try?"],
+      wa:'Continue on WhatsApp', waText:'Hello DIB Diving, I have a question: ', note:'AI can make mistakes — confirm bookings on WhatsApp.',
+      err:"Sorry, I couldn't connect just now. Please try again or message us on WhatsApp.",
+      noprice:"Prices depend on the course, trip and group size, so our team gives you an exact quote on WhatsApp:\nhttps://wa.me/"+WA_NUMBER,
+      nomatch:"I'm not sure about that one. Our team can answer you directly on WhatsApp (online 24 hours):\nhttps://wa.me/"+WA_NUMBER,
+      contact:"You can book or ask anything on WhatsApp or by phone: "+PHONE_TXT+" — we're online 24 hours.\nhttps://wa.me/"+WA_NUMBER,
+      ageNote:"For young children, our instructor will confirm the best option with you on WhatsApp.",
+      shopHint:"Open the Shop from the menu to see sizes and quantities.", spots:'Dive spots' },
+    ar:{ title:'مساعد DIB Diving', sub:'مساعد ذكي · بيرد فوراً', ph:'اكتب سؤالك…', send:'إرسال',
+      open:'افتح المحادثة', close:'اقفل المحادثة', tip:'عندك سؤال عن الغوص؟ اسألني 👋',
+      hello:'أهلاً بيك! أنا المساعد الذكي لـ DIB Diving. اسألني عن الدورات والرحلات والمعدات والتصوير تحت الماء.',
+      chips:['إيه الدورات المتاحة؟','مواعيد الرحلات إيه؟','الأسعار كام؟','أول مرة أغوص — ينفع أجرب؟'],
+      wa:'كمّل على واتساب', waText:'مرحباً DIB Diving، عندي سؤال: ', note:'المساعد الذكي ممكن يغلط — أكّد الحجز على واتساب.',
+      err:'آسفين، مقدرتش أتصل دلوقتي. جرّب تاني أو كلمنا على واتساب.',
+      noprice:"الأسعار بتختلف حسب الدورة والرحلة وعدد الأفراد، ففريقنا هيديك السعر بالظبط على واتساب:\nhttps://wa.me/"+WA_NUMBER,
+      nomatch:"مش متأكد من الإجابة دي. فريقنا يقدر يرد عليك مباشرة على واتساب (متاحين ٢٤ ساعة):\nhttps://wa.me/"+WA_NUMBER,
+      contact:"تقدر تحجز أو تسأل عن أي حاجة على واتساب أو بالتليفون: "+PHONE_TXT+" — متاحين ٢٤ ساعة.\nhttps://wa.me/"+WA_NUMBER,
+      ageNote:'لو الطفل صغير، المدرب هيأكد لك أنسب خيار على واتساب.',
+      shopHint:'افتح «المتجر» من القائمة لمعرفة المقاسات والكميات.', spots:'مواقع الغوص' },
+    ru:{ title:'Помощник DIB Diving', sub:'ИИ-помощник · отвечает сразу', ph:'Напишите вопрос…', send:'Отправить',
+      open:'Открыть чат', close:'Закрыть чат', tip:'Вопросы о дайвинге? Спросите меня 👋',
+      hello:'Здравствуйте! Я ИИ-помощник DIB Diving. Спрашивайте о курсах, выездах, снаряжении и подводной съёмке.',
+      chips:['Какие курсы у вас есть?','Расписание выездов?','Сколько это стоит?','Я никогда не нырял — можно попробовать?'],
+      wa:'Продолжить в WhatsApp', waText:'Здравствуйте, DIB Diving! У меня вопрос: ', note:'ИИ может ошибаться — подтверждайте бронь в WhatsApp.',
+      err:'Не удалось подключиться. Попробуйте ещё раз или напишите нам в WhatsApp.',
+      noprice:"Цена зависит от курса, выезда и размера группы — точную стоимость назовёт команда в WhatsApp:\nhttps://wa.me/"+WA_NUMBER,
+      nomatch:"Не уверен в ответе. Команда ответит вам напрямую в WhatsApp (на связи 24 часа):\nhttps://wa.me/"+WA_NUMBER,
+      contact:"Забронировать или задать вопрос можно в WhatsApp или по телефону: "+PHONE_TXT+" — на связи 24 часа.\nhttps://wa.me/"+WA_NUMBER,
+      ageNote:'Для маленьких детей инструктор подберёт лучший вариант и подтвердит в WhatsApp.',
+      shopHint:'Откройте «Магазин» в меню, чтобы увидеть размеры и количество.', spots:'Места для дайвинга' },
+    de:{ title:'DIB Diving Assistent', sub:'KI-Assistent · antwortet sofort', ph:'Frage eingeben…', send:'Senden',
+      open:'Chat öffnen', close:'Chat schließen', tip:'Fragen zum Tauchen? Fragen Sie mich 👋',
+      hello:'Hallo! Ich bin der KI-Assistent von DIB Diving. Fragen Sie mich zu Kursen, Ausfahrten, Ausrüstung oder Unterwasserfotografie.',
+      chips:['Welche Kurse bieten Sie an?','Wann finden die Ausfahrten statt?','Was kostet das?','Ich bin noch nie getaucht – kann ich es probieren?'],
+      wa:'Weiter auf WhatsApp', waText:'Hallo DIB Diving, ich habe eine Frage: ', note:'KI kann Fehler machen – Buchungen bitte per WhatsApp bestätigen.',
+      err:'Verbindung gerade nicht möglich. Bitte versuchen Sie es erneut oder schreiben Sie uns per WhatsApp.',
+      noprice:"Der Preis hängt von Kurs, Ausfahrt und Gruppengröße ab – unser Team nennt Ihnen den genauen Preis per WhatsApp:\nhttps://wa.me/"+WA_NUMBER,
+      nomatch:"Da bin ich nicht sicher. Unser Team antwortet direkt per WhatsApp (24 Stunden erreichbar):\nhttps://wa.me/"+WA_NUMBER,
+      contact:"Buchen oder fragen können Sie per WhatsApp oder Telefon: "+PHONE_TXT+" — 24 Stunden erreichbar.\nhttps://wa.me/"+WA_NUMBER,
+      ageNote:'Bei kleinen Kindern bestätigt Ihnen unser Instructor die beste Option per WhatsApp.',
+      shopHint:'Öffnen Sie den „Shop“ im Menü für Größen und Mengen.', spots:'Tauchplätze' },
+    it:{ title:'Assistente DIB Diving', sub:'Assistente IA · risponde subito', ph:'Scrivi la tua domanda…', send:'Invia',
+      open:'Apri la chat', close:'Chiudi la chat', tip:'Domande sulle immersioni? Chiedimi 👋',
+      hello:"Ciao! Sono l'assistente IA di DIB Diving. Chiedimi di corsi, uscite, attrezzatura o fotografia subacquea.",
+      chips:['Quali corsi offrite?','Quali sono gli orari delle uscite?','Quanto costa?','Non ho mai fatto immersioni: posso provare?'],
+      wa:'Continua su WhatsApp', waText:'Ciao DIB Diving, ho una domanda: ', note:"L'IA può sbagliare — conferma le prenotazioni su WhatsApp.",
+      err:'Non riesco a connettermi ora. Riprova o scrivici su WhatsApp.',
+      noprice:"Il prezzo dipende da corso, uscita e numero di persone: il nostro team ti darà il preventivo esatto su WhatsApp:\nhttps://wa.me/"+WA_NUMBER,
+      nomatch:"Non sono sicuro. Il nostro team ti risponde direttamente su WhatsApp (online 24 ore):\nhttps://wa.me/"+WA_NUMBER,
+      contact:"Puoi prenotare o chiedere su WhatsApp o per telefono: "+PHONE_TXT+" — online 24 ore.\nhttps://wa.me/"+WA_NUMBER,
+      ageNote:"Per i bambini piccoli, l'istruttore confermerà l'opzione migliore su WhatsApp.",
+      shopHint:'Apri il «Negozio» dal menu per vedere taglie e quantità.', spots:'Siti di immersione' }
+  };
+
+  /* ---------- helpers ---------- */
+  var $ = function(id){ return document.getElementById(id); };
+  var launch=$('dcLaunch'), tip=$('dcTip'), panel=$('dcPanel'), log=$('dcLog'), chipsBox=$('dcChips'),
+      form=$('dcForm'), input=$('dcInput'), sendBtn=$('dcSend'), waLink=$('dcWa');
+  if (!launch || !panel) return;
+
+  function lang(){ var l=(document.documentElement.lang||'en').slice(0,2).toLowerCase(); return UI[l]?l:'en'; }
+  function T(){ return UI[lang()]; }
+  function site(){
+    var d=(typeof I18N!=='undefined' && I18N[lang()])||{}, f=(typeof I18N!=='undefined' && I18N.en)||{};
+    return function(k){ return d[k]!==undefined ? d[k] : (f[k]!==undefined ? f[k] : ''); };
+  }
+  function ss(k,v){ try{ if(v===undefined) return sessionStorage.getItem(k); sessionStorage.setItem(k,v); }catch(e){} return null; }
+
+  function fmt(s){
+    var links=[];
+    function tok(t,u){ links.push('<a href="'+u+'" target="_blank" rel="noopener noreferrer">'+t+'</a>'); return '\u0000'+(links.length-1)+'\u0000'; }
+    var h=String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    h=h.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,function(m,t,u){ return tok(t,u); });
+    h=h.replace(/https?:\/\/[^\s<]+/g,function(u){
+      var tail='', m=u.match(/[.,;:!?)]+$/); if(m){ tail=m[0]; u=u.slice(0,-tail.length); }
+      return tok(/wa\.me/.test(u)?'WhatsApp':u,u)+tail;
+    });
+    h=h.replace(/\*\*([^*\n]+)\*\*/g,'<strong>$1</strong>');
+    h=h.replace(/\+20 128 657 7877/g,'<bdi dir="ltr">+20 128 657 7877</bdi>');
+    h=h.replace(/^[-*] /gm,'• ');
+    h=h.replace(/\u0000(\d+)\u0000/g,function(m,i){ return links[+i]; });
+    return h.replace(/\n/g,'<br>');
+  }
+
+  /* ---------- UI text ---------- */
+  var history=[], busy=false, started=false, lastUser='';
+  function applyText(){
+    var t=T();
+    $('dcTitle').textContent=t.title; $('dcSub').textContent=t.sub;
+    input.placeholder=t.ph; sendBtn.setAttribute('aria-label',t.send);
+    launch.setAttribute('aria-label',t.open); $('dcClose').setAttribute('aria-label',t.close);
+    waLink.textContent=t.wa; $('dcNote').textContent=t.note; tip.textContent=t.tip;
+    updateWa();
+  }
+  function updateWa(){
+    waLink.href='https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(T().waText+(lastUser||''));
+  }
+  function renderChips(){
+    chipsBox.innerHTML='';
+    if (started) return;
+    T().chips.forEach(function(q){
+      var b=document.createElement('button'); b.type='button'; b.className='dc-chip'; b.textContent=q;
+      b.addEventListener('click',function(){ send(q); });
+      chipsBox.appendChild(b);
+    });
+  }
+  function addMsg(role,text){
+    var d=document.createElement('div'); d.className='dc-msg '+role;
+    if (role==='bot') d.innerHTML=fmt(text); else d.textContent=text;
+    log.appendChild(d); log.scrollTop=log.scrollHeight; return d;
+  }
+  function showHello(){
+    log.innerHTML=''; addMsg('bot',T().hello); renderChips();
+  }
+  function typing(on){
+    var el=$('dcTyping');
+    if (on && !el){
+      el=document.createElement('div'); el.id='dcTyping'; el.className='dc-typing';
+      el.innerHTML='<span></span><span></span><span></span>';
+      el.setAttribute('aria-label','…'); log.appendChild(el); log.scrollTop=log.scrollHeight;
+    } else if (!on && el){ el.remove(); }
+  }
+
+  /* ---------- basic mode: answers built from the page's own content ---------- */
+  function norm(s){
+    return String(s).toLowerCase()
+      .replace(/[\u064B-\u0652\u0640]/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه')
+      .replace(/[؟?!.,،:;()"«»]/g,' ').replace(/\s+/g,' ').trim();
+  }
+  var INTENTS=[
+    ['price',  /سعر|اسعار|(^| )بكام|تكلف|فلوس|ثمن|price|cost|how much|\bfees?\b|цен|стоим|сколько|preis|kost|wieviel|prezz|cost[aoi]|quanto cost/],
+    ['contact',/حجز|احجز|واتس|رقم|تليفون|اتصال|اتصل|تواصل|كلم|book|reserv|whatsapp|phone|call|contact|брон|телефон|связ|whatsapp|buch|telefon|kontakt|prenot|telefon|contatt/],
+    ['night',  /ليل|night|ночн|nacht|notturn/],
+    ['schedule',/موعد|مواعيد|ميعاد|وقت|ساع|امتي|متي|schedule|time|when|hours|расписан|врем|(^| )когда|zeit|wann|uhr|orari|quando|ora /],
+    ['shop',   /معدات|متجر|شراء|اشتري|بيع|قناع|زعانف|بدل|منظم|gear|shop|equipment|buy|mask|fins|wetsuit|снаряж|магазин|регулятор|ausr|kaufen|attrezz|negozio/],
+    ['courses',/دور|كورس|شهاد|اوبن|ادفانس|رسكيو|course|certif|padi|open water|advanced|rescue|divemaster|курс|сертиф|kurs|zertif|cors|certific/],
+    ['beginner',/سباح|اول مره|لاول|مبتد|اجرب|تجرب|اجرّب|swim|first time|never|beginner|\btry\b|впервые|нович|никогда|нырял|попроб|плавать|schwimm|noch nie|anfänger|probier|nuoto|mai fatto|prima volta|principiant|provare/],
+    ['safe',   /امن|امان|خطر|safe|danger|безопас|sicher|sicur/],
+    ['age',    /(^| )(ال)?(سن|عمر)( |$)|اطفال|طفل|عيل|ولاد|صغير|\bage\b|how old|kid|child|возраст|дет|alter|kind|età|bambin/],
+    ['where',  /فين|اين|مكان|اماكن|مواقع|جزير|غردق|شرم|اسكندري|where|location|place|island|spot|где|мест|остров|\bwo\b|\bort\b|insel|\bdove\b|luogo|isola/],
+    ['camera', /كامير|تصوير|صور|فيديو|camera|photo|video|камер|фото|съёмк|съемк|kamera|foto|fotocamera/],
+    ['duration',/مده|تستغرق|how long|duration|длит|dauer|wie lange|durata|quanto dura/],
+    ['price',  /(^| )كام( |$)/]
+  ];
+  function intentOf(q){ var n=norm(q); for (var i=0;i<INTENTS.length;i++) if (INTENTS[i][1].test(n)) return INTENTS[i][0]; return null; }
+
+  function stockLines(L){
+    if (typeof STOCK==='undefined' || typeof GEAR==='undefined') return '';
+    var out=[];
+    ['new','used'].forEach(function(c){
+      var names=GEAR.filter(function(g){ return STOCK[c] && STOCK[c][g.k] && STOCK[c][g.k].length; }).map(function(g){ return L(g.k); });
+      if (names.length) out.push('• '+L('badge_'+c)+': '+names.join(lang()==='ar'?'، ':', '));
+    });
+    return out.join('\n');
+  }
+  function basicAnswer(q){
+    var t=T(), L=site(), it=intentOf(q);
+    switch(it){
+      case 'price':   return t.noprice;
+      case 'contact': return t.contact;
+      case 'night':   return '**'+L('s4_title')+'** — '+L('t4')+' '+L('t4s')+'\n'+L('s4_desc')+'\n\n'+L('note');
+      case 'schedule':{
+        var r=['**'+L('sched_h2')+'**'];
+        for (var i=1;i<=4;i++) r.push('• '+L('t'+i)+' '+L('t'+i+'s')+' — '+L('s'+i+'_title')+': '+L('s'+i+'_desc'));
+        r.push('\n'+L('note')); return r.join('\n');
+      }
+      case 'shop':    return '**'+L('shop_h2')+'**\n'+stockLines(L)+'\n\n'+t.shopHint;
+      case 'courses':{
+        var c=[['Open Water Diver','c1'],['Advanced Open Water','c2'],['Rescue Diver','c3'],['Divemaster','c4']];
+        return '**'+L('certs_h2')+'**\n'+c.map(function(x){ return '• **'+x[0]+'** — '+L(x[1]+'_desc')+' ('+L(x[1]+'_dur')+')'; }).join('\n')+'\n\n'+L('badge');
+      }
+      case 'beginner':return L('a1')+'\n\n**'+L('s3_title')+'** — '+L('t3')+' '+L('t3s')+': '+L('s3_desc');
+      case 'safe':    return L('a2');
+      case 'age':     return L('a3')+'\n\n'+t.ageNote;
+      case 'where':   return L('a4')+'\n\n**'+t.spots+':** '+[L('isl1_h'),L('isl2_h'),L('isl5_h'),L('isl6_h')].join(lang()==='ar'?'، ':', ');
+      case 'camera':  return L('photo_p')+'\n\n'+L('a5');
+      case 'duration':return L('a6');
+      default:        return t.nomatch;
+    }
+  }
+
+  /* ---------- AI mode ---------- */
+  function stockText(){
+    if (typeof STOCK==='undefined' || typeof GEAR==='undefined' || typeof I18N==='undefined') return '';
+    var en=I18N.en, out=[];
+    ['new','used'].forEach(function(c){
+      GEAR.forEach(function(g){
+        var list=(STOCK[c]&&STOCK[c][g.k])||[];
+        out.push(c.toUpperCase()+' '+en[g.k]+': '+(list.length?list.map(function(x){ return (x.t||en[x.k])+(x.q?' x'+x.q:''); }).join(', '):'none listed'));
+      });
+    });
+    return out.join('\n');
+  }
+  function askAI(){
+    var ctrl=('AbortController' in window)?new AbortController():null;
+    var timer=setTimeout(function(){ if(ctrl) ctrl.abort(); },25000);
+    return fetch(CHAT_ENDPOINT,{
+      method:'POST', headers:{'Content-Type':'application/json'}, signal:ctrl?ctrl.signal:undefined,
+      body:JSON.stringify({ messages:history.slice(-MAX_TURNS*2), lang:lang(), stock:stockText() })
+    }).then(function(r){
+      clearTimeout(timer); if(!r.ok) throw new Error('HTTP '+r.status); return r.json();
+    }).then(function(d){
+      if(!d || !d.reply) throw new Error('empty reply'); return String(d.reply);
+    });
+  }
+
+  /* ---------- send ---------- */
+  function send(text){
+    text=(text||'').trim(); if(!text || busy) return;
+    busy=true; sendBtn.disabled=true;
+    if(!started){ started=true; chipsBox.innerHTML=''; }
+    lastUser=text; updateWa();
+    addMsg('user',text); history.push({role:'user',content:text}); input.value='';
+    typing(true);
+    var done=function(reply){
+      typing(false); addMsg('bot',reply); history.push({role:'assistant',content:reply});
+      busy=false; sendBtn.disabled=false;
+      if (window.matchMedia && matchMedia('(hover:hover)').matches) input.focus({preventScroll:true});
+    };
+    if (CHAT_ENDPOINT){
+      askAI().then(done).catch(function(e){
+        if (window.console) console.warn('[DIB chat]',e);
+        done(basicAnswer(text)===T().nomatch ? T().err : basicAnswer(text));
+      });
+    } else {
+      setTimeout(function(){ done(basicAnswer(text)); }, 450+Math.random()*350);
+    }
+  }
+  form.addEventListener('submit',function(e){ e.preventDefault(); send(input.value); });
+
+  /* ---------- open / close ---------- */
+  var mobile=function(){ return window.matchMedia && matchMedia('(max-width:520px)').matches; };
+  function hideTip(){ tip.hidden=true; ss('dc-tip','1'); }
+  function openChat(){
+    panel.classList.add('open'); panel.setAttribute('aria-hidden','false');
+    launch.setAttribute('aria-expanded','true'); launch.classList.add('hide-m'); hideTip();
+    if (mobile()) document.body.style.overflow='hidden';
+    setTimeout(function(){
+      if (window.matchMedia && matchMedia('(hover:hover)').matches) input.focus({preventScroll:true}); else panel.focus({preventScroll:true});
+    },120);
+  }
+  function closeChat(){
+    panel.classList.remove('open'); panel.setAttribute('aria-hidden','true');
+    launch.setAttribute('aria-expanded','false'); launch.classList.remove('hide-m');
+    document.body.style.overflow=''; launch.focus({preventScroll:true});
+  }
+  launch.addEventListener('click',function(){ panel.classList.contains('open') ? closeChat() : openChat(); });
+  tip.addEventListener('click',openChat);
+  $('dcClose').addEventListener('click',closeChat);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && panel.classList.contains('open')) closeChat(); });
+
+  /* ---------- follow the site's language switcher ---------- */
+  var lastLang=lang();
+  new MutationObserver(function(){
+    if (lang()===lastLang) return; lastLang=lang();
+    applyText(); if(!started) showHello();
+  }).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+
+  applyText(); showHello();
+  if (!CHAT_ENDPOINT && window.console) console.info('[DIB chat] Basic mode (no CHAT_ENDPOINT set). Deploy worker.js to enable full AI answers.');
+
+  /* one gentle nudge, once per visit */
+  if (!ss('dc-tip')) setTimeout(function(){
+    if (!panel.classList.contains('open') && !ss('dc-tip')){ tip.hidden=false; setTimeout(hideTip,9000); }
+  },6000);
+})();
+
 </script>
 </body>
 </html>
