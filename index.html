@@ -1899,6 +1899,119 @@ function initRest(){
     }
   }
 
+  /* ---------- small talk: greetings, how-are-you, thanks, goodbye (ar / en / ru / de / it) ---------- */
+  var SOC={
+    ar:{
+      salam:/(^|\s)((ال)?سلام عليكم|وعليكم (ال)?سلام)(?=\s|$)/,
+      bye:/(^|\s)(مع السلامه|سلام|وداعا|الي اللقاء|الى اللقاء|باي|باي باي|تصبح علي خير|تصبحوا علي خير|في امان الله)(?=\s|$)/,
+      thanks:/(^|\s)(شكرا|شكرا جزيلا|شكرا ليك|شكرا لك|شكرا لكم|الف شكر|الف شكر ليك|تسلم|تسلمي|تسلم ايدك|تسلم ايدكم|متشكر|متشكره|مشكور|مشكوره|ميرسي|مرسي|يعطيك العافيه|جزاك الله خيرا|كتر خيرك|بارك الله فيك)(?=\s|$)/,
+      how:/(^|\s)(ازيك|ازيكم|ازاي حالك|عامل ايه|عامله ايه|عاملين ايه|اخبارك|اخبارك ايه|اخباركم|كيفك|كيف حالك|كيف الحال|شلونك)(?=\s|$)/,
+      greet:/(^|\s)(مرحبا|مرحبتين|مرحبا بك|اهلا|اهلين|هلا|هلا والله|هاي|هلو|صباح الخير|صباح النور|مساء الخير|مساء النور|ايوه|يا هلا)(?=\s|$)/,
+      ok:/(^|\s)(تمام|اوكي|اوكيه|ماشي|حاضر|ممتاز|حلو|رائع|جميل|طيب|ok|okay)(?=\s|$)/,
+      fill:/(^|\s)(يا|باشا|فندم|بيك|بيكم|بك|بكم|وسهلا|وعليكم|ورحمه|الله|وبركاته|جدا|كتير|ليك|لك|لكم|كده|دلوقتي|والله|انت|انتم|كلكم|بس|و|ي)(?=\s|$)/,
+      r:{
+        salam:"وعليكم السلام ورحمة الله وبركاته 🌊 نورتنا في DIB Diving! أقدر أساعدك في إيه؟ اسألني عن الدورات أو الرحلات أو المواعيد.",
+        greet:"أهلاً بك! 👋 نورتنا في DIB Diving 🌊\nأقدر أساعدك في إيه؟ اسألني عن الدورات أو الرحلات أو المواعيد أو الحجز.",
+        how:"الحمد لله تمام، شكرًا لسؤالك 😊 أخبارك إيه؟\nأقدر أساعدك في إيه النهارده؟",
+        thanks:"العفو! 😊 يسعدني أساعدك.\nلو احتجت أي حاجة تانية عن الدورات أو الرحلات أو الحجز أنا موجود.",
+        ok:"تمام! 👍 لو عندك أي سؤال تاني أنا موجود.",
+        bye:"مع السلامة! 👋 نتمنى لك رحلة غوص سعيدة وآمنة، ويا رب نشوفك قريب معانا في DIB Diving 🌊🤿",
+        ty:"العفو! 😊"
+      }
+    },
+    en:{
+      bye:/(^|\s)(bye|bye bye|goodbye|good bye|see you|see you later|see ya|take care|cya|good night|goodnight|talk later|have a nice day)(?=\s|$)/,
+      thanks:/(^|\s)(thanks|thank you|thank u|thx|thnx|ty|cheers|much appreciated|many thanks|appreciate it|i appreciate it)(?=\s|$)/,
+      how:/(^|\s)(how are you|how are u|how r u|how're you|how's it going|hows it going|how is it going|how are things|what's up|whats up|sup|how do you do)(?=\s|$)/,
+      greet:/(^|\s)(hi|hello|hey|hiya|heya|yo|good morning|good afternoon|good evening|greetings|welcome)(?=\s|$)/,
+      ok:/(^|\s)(ok|okay|great|perfect|nice|good|cool|alright|all right|got it|sure|fine|awesome|excellent|wonderful)(?=\s|$)/,
+      fill:/(^|\s)(there|again|so|very|much|a|lot|you|u|dib|diving|team|everyone|all|and|too|please|pls|sir|madam|friend|for|your|the|help|that|it|is)(?=\s|$)/,
+      r:{
+        greet:"Hi there! 👋 Welcome to DIB Diving 🌊\nWhat can I help you with? Ask me about courses, trips, times or booking.",
+        how:"I'm doing great, thanks for asking! 😊 How about you?\nWhat can I help you with today?",
+        thanks:"You're very welcome! 😊\nIs there anything else you'd like to know about our courses, trips or booking?",
+        ok:"Great! 👍 Let me know if there's anything else you need.",
+        bye:"Goodbye! 👋 Wishing you a wonderful and safe dive trip — see you underwater soon! 🌊🤿",
+        ty:"You're welcome! 😊"
+      }
+    },
+    ru:{
+      bye:/(^|\s)(пока|до свидания|досвидания|до встречи|всего доброго|всего хорошего|удачи|спокойной ночи|прощайте)(?=\s|$)/,
+      thanks:/(^|\s)(спасибо|спс|благодарю|благодарствую|большое спасибо|огромное спасибо|мерси)(?=\s|$)/,
+      how:/(^|\s)(как дела|как ты|как вы|как поживаете|как поживаешь|как жизнь|что нового)(?=\s|$)/,
+      greet:/(^|\s)(привет|приветствую|здравствуйте|здравствуй|добрый день|добрый вечер|доброе утро|доброго времени суток|салют|хай)(?=\s|$)/,
+      ok:/(^|\s)(ок|окей|хорошо|отлично|понятно|ясно|ладно|супер|прекрасно|ага)(?=\s|$)/,
+      fill:/(^|\s)(вам|тебе|большое|огромное|очень|вас|вы|ты|за|помощь|ответ|и|а|у|команда|dib|diving)(?=\s|$)/,
+      r:{
+        greet:"Здравствуйте! 👋 Добро пожаловать в DIB Diving 🌊\nЧем могу помочь? Спрашивайте о курсах, выездах, расписании или бронировании.",
+        how:"Спасибо, всё отлично! 😊 А как у вас дела?\nЧем могу помочь сегодня?",
+        thanks:"Пожалуйста! 😊\nНужна ли вам ещё какая-нибудь информация о курсах, выездах или бронировании?",
+        ok:"Отлично! 👍 Если появятся вопросы — я на связи.",
+        bye:"До свидания! 👋 Желаем вам незабываемого и безопасного погружения — до встречи под водой! 🌊🤿",
+        ty:"Пожалуйста! 😊"
+      }
+    },
+    de:{
+      bye:/(^|\s)(tschüss|tschuss|tschau|auf wiedersehen|wiedersehen|bis bald|bis später|bis dann|bis morgen|gute nacht|mach's gut|bye|goodbye)(?=\s|$)/,
+      thanks:/(^|\s)(danke|danke schön|danke schon|dankeschön|dankeschon|vielen dank|besten dank|herzlichen dank|danke dir|danke ihnen|merci|thanks|thank you)(?=\s|$)/,
+      how:/(^|\s)(wie geht's|wie gehts|wie geht es dir|wie geht es ihnen|wie geht's dir|wie geht es|wie läuft's|how are you)(?=\s|$)/,
+      greet:/(^|\s)(hallo|hi|hey|hello|moin|servus|grüß gott|gruss gott|guten tag|guten morgen|guten abend|grüezi|willkommen)(?=\s|$)/,
+      ok:/(^|\s)(ok|okay|gut|super|prima|klasse|alles klar|verstanden|perfekt|toll|schön|genau|top|in ordnung|cool)(?=\s|$)/,
+      fill:/(^|\s)(sehr|dir|ihnen|euch|dich|für|die|hilfe|ihre|und|auch|nochmal|dib|diving|team|an|alle|dann)(?=\s|$)/,
+      r:{
+        greet:"Hallo! 👋 Willkommen bei DIB Diving 🌊\nWie kann ich helfen? Fragen Sie mich zu Kursen, Ausfahrten, Zeiten oder zur Buchung.",
+        how:"Danke, mir geht's super! 😊 Und Ihnen?\nWie kann ich Ihnen heute helfen?",
+        thanks:"Sehr gern! 😊\nMöchten Sie noch etwas zu Kursen, Ausfahrten oder zur Buchung wissen?",
+        ok:"Super! 👍 Melden Sie sich einfach, wenn Sie noch etwas brauchen.",
+        bye:"Auf Wiedersehen! 👋 Wir wünschen Ihnen eine tolle und sichere Tauchreise — bis bald unter Wasser! 🌊🤿",
+        ty:"Gern geschehen! 😊"
+      }
+    },
+    it:{
+      bye:/(^|\s)(arrivederci|arrivederla|a presto|a dopo|ci vediamo|buonanotte|buona serata|buona giornata|addio|alla prossima|bye|goodbye)(?=\s|$)/,
+      thanks:/(^|\s)(grazie|grazie mille|mille grazie|molte grazie|tante grazie|ti ringrazio|la ringrazio|vi ringrazio|ringrazio|thanks|thank you)(?=\s|$)/,
+      how:/(^|\s)(come stai|come sta|come state|come va|come andiamo|tutto bene|how are you)(?=\s|$)/,
+      greet:/(^|\s)(ciao|salve|buongiorno|buonasera|buon pomeriggio|buondì|buondi|ehi|ei|benvenuto|benvenuti|hi|hello|hey)(?=\s|$)/,
+      ok:/(^|\s)(ok|okay|va bene|benissimo|perfetto|ottimo|bene|capito|chiaro|d'accordo|grande|fantastico|bello)(?=\s|$)/,
+      fill:/(^|\s)(a|tutti|voi|te|molto|tanto|tante|molte|mille|infinite|per|il|aiuto|l'aiuto|la|e|anche|dib|diving|team|di|niente|nulla|prego|ancora)(?=\s|$)/,
+      r:{
+        greet:"Ciao! 👋 Benvenuto da DIB Diving 🌊\nCome posso aiutarti? Chiedimi di corsi, uscite, orari o prenotazioni.",
+        how:"Sto benissimo, grazie! 😊 E tu come stai?\nCome posso aiutarti oggi?",
+        thanks:"Di niente! 😊\nC'è qualcos'altro che vuoi sapere su corsi, uscite o prenotazioni?",
+        ok:"Perfetto! 👍 Fammi sapere se ti serve altro.",
+        bye:"Arrivederci! 👋 Ti auguriamo un'immersione fantastica e sicura — a presto sott'acqua! 🌊🤿",
+        ty:"Di niente! 😊"
+      }
+    }
+  };
+  function socialReply(q){
+    var n=norm(q).replace(/\u2019/g,"'").replace(/[^\p{L}\p{N}'\s]/gu,' ').replace(/\s+/g,' ').trim();
+    if (!n || n.length>50 || intentOf(q)) return null;
+    var order;
+    if (/[\u0600-\u06FF]/.test(n)) order=['ar'];
+    else if (/[\u0400-\u04FF]/.test(n)) order=['ru'];
+    else { var s=lang(); order=(s==='de'||s==='it'||s==='en')?[s,'en','de','it'].filter(function(x,i,a){return a.indexOf(x)===i;}):['en','de','it']; }
+    for (var k=0;k<order.length;k++){
+      var D=SOC[order[k]], hit={}, any=false;
+      ['salam','bye','thanks','how','greet','ok'].forEach(function(key){ if(D[key] && D[key].test(n)){ hit[key]=true; any=true; } });
+      if(!any) continue;
+      var rest=n;
+      ['salam','bye','thanks','how','greet','ok','fill'].forEach(function(key){
+        if(!D[key]) return; var g=new RegExp(D[key].source,'g');
+        rest=rest.replace(g,'$1').replace(/\s+/g,' ');
+      });
+      if (rest.replace(/\s/g,'').length) continue;
+      var first=(history.length<=1);
+      if (hit.bye && !hit.salam && n==='سلام' && first){ hit.salam=true; hit.bye=false; }
+      if (hit.greet && /(^|\s)ciao(\s|$)/.test(n) && history.length>=3){ hit.bye=true; }
+      var kind=hit.salam?'salam':hit.bye?'bye':hit.thanks?'thanks':hit.how?'how':hit.greet?'greet':'ok';
+      var R=D.r, txt=R[kind]||R.greet;
+      if (kind==='bye' && hit.thanks) txt=R.ty+' '+txt;
+      return txt;
+    }
+    return null;
+  }
+
   /* ---------- AI mode ---------- */
   function stockText(){
     if (typeof STOCK==='undefined' || typeof GEAR==='undefined' || typeof I18N==='undefined') return '';
@@ -1954,6 +2067,8 @@ function initRest(){
       history.push({role:'assistant',content:reply});
       setTimeout(function(){ deliver(reply,finish); },Math.max(0,750-(Date.now()-t0)));
     };
+    var soc=socialReply(text);
+    if (soc){ setTimeout(function(){ done(soc); },250); return; }
     if (CHAT_ENDPOINT){
       askAI().then(done).catch(function(e){
         if (window.console) console.warn('[DIB chat]',e);
