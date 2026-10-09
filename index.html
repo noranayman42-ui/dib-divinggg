@@ -1436,10 +1436,10 @@ With Us</h1>
     <div class="section-head reveal">
       <div class="tag" id="qbTag">Quick booking</div>
       <h2 id="qbH">Book on WhatsApp</h2>
-      <p class="sub" id="qbSub"></p>
     </div>
     <div class="qb reveal">
       <label><span id="qbL0">Name</span><input id="qbName" type="text" autocomplete="name" maxlength="60"></label>
+      <label><span id="qbLp">Contact number</span><input id="qbPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" dir="ltr"></label>
       <label><span id="qbL1">Service</span><select id="qbCourse"></select></label>
       <label><span id="qbL2">Location</span><select id="qbPlace"></select></label>
       <label><span id="qbL3">People</span><input id="qbPeople" type="number" inputmode="numeric" min="1" max="30" value="1"></label>
@@ -2266,30 +2266,35 @@ function initRest(){
   var WA='201286577877';
   var T = {
     ar:{tag:'حجز سريع', h:'احجز عبر واتساب', sub:'اختر ما يناسبك وسنفتح لك واتساب برسالة جاهزة للإرسال.',
+      lp:'رقم التواصل',
       l:['الاسم','الخدمة','المكان','عدد الأشخاص'], btn:'أرسل عبر واتساب', hint:'المواعيد تتأكد معنا على واتساب بعد الإرسال.',
       course:['تجربة غوص تعريفية','Open Water Diver','Advanced Open Water','Rescue Diver','Divemaster','رحلة غوص يومية','التصوير تحت الماء','غوص تجريبي / استكشافي (Intro Dive)','غوص ترفيهي (Recreational Diving)','غوص عميق (Deep Diving)','غوص ليلي (Night Diving)','غوص حطام (Wreck Diving)'],
       place:['الإسكندرية','شرم الشيخ','الغردقة'],
-      msg:function(nm,c,pl,n){return 'مرحباً DIB Diving 👋\nأرغب في الحجز:'+(nm?'\n• الاسم: '+nm:'')+'\n• الخدمة: '+c+'\n• المكان: '+pl+'\n• عدد الأشخاص: '+n;}},
+      msg:function(nm,ph,c,pl,n){return 'مرحباً DIB Diving 👋\nأرغب في الحجز:'+(nm?'\n• الاسم: '+nm:'')+(ph?'\n• رقم التواصل: '+ph:'')+'\n• الخدمة: '+c+'\n• المكان: '+pl+'\n• عدد الأشخاص: '+n;}},
     en:{tag:'Quick booking', h:'Book on WhatsApp', sub:'Pick what suits you and we will open WhatsApp with a ready message.',
+      lp:'Contact number',
       l:['Name','Service','Location','People'], btn:'Send on WhatsApp', hint:'We confirm the schedule with you on WhatsApp.',
       course:['Discover Scuba Dive','Open Water Diver','Advanced Open Water','Rescue Diver','Divemaster','Daily dive trip','Underwater photography','Intro Dive','Recreational Diving','Deep Diving','Night Diving','Wreck Diving'],
       place:['Alexandria','Sharm El Sheikh','Hurghada'],
-      msg:function(nm,c,pl,n){return 'Hello DIB Diving 👋\nI would like to book:'+(nm?'\n• Name: '+nm:'')+'\n• Service: '+c+'\n• Location: '+pl+'\n• People: '+n;}},
+      msg:function(nm,ph,c,pl,n){return 'Hello DIB Diving 👋\nI would like to book:'+(nm?'\n• Name: '+nm:'')+(ph?'\n• Contact number: '+ph:'')+'\n• Service: '+c+'\n• Location: '+pl+'\n• People: '+n;}},
     ru:{tag:'Быстрое бронирование', h:'Забронировать в WhatsApp', sub:'Выберите нужное — откроем WhatsApp с готовым сообщением.',
+      lp:'Номер для связи',
       l:['Имя','Услуга','Место','Человек'], btn:'Отправить в WhatsApp', hint:'Расписание подтвердим с вами в WhatsApp.',
       course:['Пробное погружение','Open Water Diver','Advanced Open Water','Rescue Diver','Divemaster','Ежедневный выезд','Подводная съёмка','Ознакомительное погружение','Рекреационный дайвинг','Глубоководное погружение','Ночное погружение','Погружение на затонувший объект'],
       place:['Александрия','Шарм-эль-Шейх','Хургада'],
-      msg:function(nm,c,pl,n){return 'Здравствуйте, DIB Diving 👋\nХочу забронировать:'+(nm?'\n• Имя: '+nm:'')+'\n• Услуга: '+c+'\n• Место: '+pl+'\n• Человек: '+n;}},
+      msg:function(nm,ph,c,pl,n){return 'Здравствуйте, DIB Diving 👋\nХочу забронировать:'+(nm?'\n• Имя: '+nm:'')+(ph?'\n• Номер для связи: '+ph:'')+'\n• Услуга: '+c+'\n• Место: '+pl+'\n• Человек: '+n;}},
     de:{tag:'Schnellbuchung', h:'Per WhatsApp buchen', sub:'Wähle aus, was passt — wir öffnen WhatsApp mit einer fertigen Nachricht.',
+      lp:'Kontaktnummer',
       l:['Name','Leistung','Ort','Personen'], btn:'Per WhatsApp senden', hint:'Den Termin bestätigen wir mit dir per WhatsApp.',
       course:['Schnuppertauchen','Open Water Diver','Advanced Open Water','Rescue Diver','Divemaster','Tägliche Tauchfahrt','Unterwasserfotografie','Einführungstauchgang','Freizeittauchen','Tieftauchen','Nachttauchen','Wracktauchen'],
       place:['Alexandria','Scharm El-Scheich','Hurghada'],
-      msg:function(nm,c,pl,n){return 'Hallo DIB Diving 👋\nIch möchte buchen:'+(nm?'\n• Name: '+nm:'')+'\n• Leistung: '+c+'\n• Ort: '+pl+'\n• Personen: '+n;}},
+      msg:function(nm,ph,c,pl,n){return 'Hallo DIB Diving 👋\nIch möchte buchen:'+(nm?'\n• Name: '+nm:'')+(ph?'\n• Kontaktnummer: '+ph:'')+'\n• Leistung: '+c+'\n• Ort: '+pl+'\n• Personen: '+n;}},
     it:{tag:'Prenotazione rapida', h:'Prenota su WhatsApp', sub:'Scegli ciò che ti serve e apriremo WhatsApp con un messaggio pronto.',
+      lp:'Numero di contatto',
       l:['Nome','Servizio','Luogo','Persone'], btn:'Invia su WhatsApp', hint:'Confermiamo gli orari con te su WhatsApp.',
       course:['Battesimo del mare','Open Water Diver','Advanced Open Water','Rescue Diver','Divemaster','Uscita giornaliera','Fotografia subacquea','Immersione introduttiva','Immersione ricreativa','Immersione profonda','Immersione notturna','Immersione su relitto'],
       place:['Alessandria','Sharm el-Sheikh','Hurghada'],
-      msg:function(nm,c,pl,n){return 'Ciao DIB Diving 👋\nVorrei prenotare:'+(nm?'\n• Nome: '+nm:'')+'\n• Servizio: '+c+'\n• Luogo: '+pl+'\n• Persone: '+n;}}
+      msg:function(nm,ph,c,pl,n){return 'Ciao DIB Diving 👋\nVorrei prenotare:'+(nm?'\n• Nome: '+nm:'')+(ph?'\n• Numero di contatto: '+ph:'')+'\n• Servizio: '+c+'\n• Luogo: '+pl+'\n• Persone: '+n;}}
   };
   var EN_C = T.en.course, EN_P = T.en.place;
   var $=function(s){return document.querySelector(s);};
@@ -2302,8 +2307,9 @@ function initRest(){
   }
   function apply(){
     cur = lang(); var d = T[cur];
-    $('#qbTag').textContent=d.tag; $('#qbH').textContent=d.h; $('#qbSub').textContent=d.sub;
+    $('#qbTag').textContent=d.tag; $('#qbH').textContent=d.h; 
     ['#qbL0','#qbL1','#qbL2','#qbL3'].forEach(function(id,i){ $(id).textContent=d.l[i]; });
+    $('#qbLp').textContent=d.lp;
     $('#qbBtn').textContent=d.btn; $('#qbHint').textContent=d.hint;
     fillSelect($('#qbCourse'), d.course); fillSelect($('#qbPlace'), d.place);
   }
@@ -2314,7 +2320,7 @@ function initRest(){
     var c = d.course[ci] + ((cur==='en' || d.course[ci].indexOf('(')>-1) ? '' : ' (' + EN_C[ci] + ')');
     var pl = d.place[pi] + (cur==='en' ? '' : ' (' + EN_P[pi] + ')');
     var n = Math.max(1, Math.min(30, parseInt($('#qbPeople').value,10)||1));
-    window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(d.msg($('#qbName').value.trim(), c, pl, n)), '_blank', 'noopener');
+    window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(d.msg($('#qbName').value.trim(), $('#qbPhone').value.trim(), c, pl, n)), '_blank', 'noopener');
   });
 })();
 </script>
