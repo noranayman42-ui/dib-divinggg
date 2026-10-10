@@ -1721,10 +1721,25 @@ applyLang(pickInitialLang());
     }, { threshold: [0.6] });
     vids.forEach(v => io.observe(v));
   }
-  function goTo(i){
+  /* works the same in left-to-right and right-to-left (Arabic) pages: move by the physical distance to the card's centre */
+  function goTo(i, instant){
     const f = frames[i]; if (!f || !row) return;
-    row.scrollTo({ left: f.offsetLeft - (row.clientWidth - f.clientWidth)/2, behavior: reduce ? 'auto' : 'smooth' });
+    const fr = f.getBoundingClientRect(), rr = row.getBoundingClientRect();
+    const delta = (fr.left + fr.width/2) - (rr.left + rr.width/2);
+    row.scrollBy({ left: delta, behavior: (reduce || instant) ? 'auto' : 'smooth' });
   }
+  /* always begin at the first video (the diver giving the signals), in every language */
+  function resetToFirst(){
+    if (!row) return;
+    const prev = row.style.scrollBehavior; row.style.scrollBehavior = 'auto';
+    row.scrollLeft = 0;
+    row.style.scrollBehavior = prev;
+    vids.forEach((v,k) => { if (k) v.pause(); });
+    setActive(0);
+  }
+  resetToFirst();
+  window.addEventListener('load', resetToFirst);
+  new MutationObserver(resetToFirst).observe(document.documentElement, { attributes:true, attributeFilter:['lang','dir'] });
   dots.forEach((d,i) => d.addEventListener('click', () => goTo(i)));
   /* when a video finishes, slide to the next one (the last one goes back to the first) */
   vids.forEach((v,i) => v.addEventListener('ended', () => {
