@@ -1130,10 +1130,10 @@ section.photo .photo-list li{ text-shadow:0 1px 8px rgba(0,0,0,.8); background:r
 
 /* ---- chat: keep the input visible when the mobile keyboard opens ---- */
 @media (max-width:520px){
+  /* same size as the normal chat window, just lifted so it sits inside the visible area above the keyboard */
   section.dibchat.dc-kb{
-    position:fixed; top:var(--vv-top, 0px); bottom:auto; left:0; right:0;
-    inset-inline:0; width:100%; height:var(--vv-h, 100dvh); max-height:none;
-    border-radius:0; padding-bottom:0; transform:none;
+    top:var(--vv-top, auto); bottom:auto; height:var(--vv-h, min(400px, calc(100dvh - 130px)));
+    transform:none;
   }
   section.dibchat.dc-kb .dc-log{ min-height:0; }
   section.dibchat.dc-kb .dc-form{ padding-bottom:8px; }
@@ -2409,7 +2409,8 @@ function initRest(){
   function active(){ return mq.matches && document.activeElement===input && panel.classList.contains('open'); }
   function apply(){
     if(!active()){ panel.classList.remove('dc-kb'); panel.style.removeProperty('--vv-h'); panel.style.removeProperty('--vv-top'); return; }
-    var h=vv?vv.height:window.innerHeight, t=vv?vv.offsetTop:0;
+    var vh=vv?vv.height:window.innerHeight, vt=vv?vv.offsetTop:0, gap=8;
+    var h=Math.min(400, vh-2*gap), t=vt+vh-h-gap;     /* normal height (400px), pinned to the bottom of the visible area */
     panel.style.setProperty('--vv-h', Math.round(h)+'px');
     panel.style.setProperty('--vv-top', Math.round(t)+'px');
     panel.classList.add('dc-kb');
