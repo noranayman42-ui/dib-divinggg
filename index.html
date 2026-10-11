@@ -1140,6 +1140,23 @@ section.photo .photo-list li{ text-shadow:0 1px 8px rgba(0,0,0,.8); background:r
 }
 
 .watch-hint{ font-size:.58em; font-weight:600; color:var(--sand); white-space:nowrap; letter-spacing:0; }
+
+/* ---- bigger chat window: more messages visible without scrolling ---- */
+section.dibchat{
+  width:min(350px, calc(100vw - 24px));
+  height:min(520px, calc(100vh - 120px));
+  height:min(520px, calc(100dvh - 120px));
+}
+@media (max-width:520px){
+  section.dibchat{
+    width:min(335px, calc(100vw - 24px));
+    height:min(490px, calc(100dvh - 130px));
+  }
+  section.dibchat.dc-kb{
+    height:var(--vv-h, min(490px, calc(100dvh - 130px)));
+  }
+}
+.dibchat .dc-log{ gap:8px; }
 </style>
 </head>
 <body>
@@ -2691,7 +2708,7 @@ function initRest(){
   function apply(){
     if(!active()){ panel.classList.remove('dc-kb'); panel.style.removeProperty('--vv-h'); panel.style.removeProperty('--vv-top'); return; }
     var vh=vv?vv.height:window.innerHeight, vt=vv?vv.offsetTop:0, gap=8;
-    var h=Math.min(400, vh-2*gap), t=vt+vh-h-gap;     /* normal height (400px), pinned to the bottom of the visible area */
+    var h=Math.min(490, vh-2*gap), t=vt+vh-h-gap;     /* normal height (490px), pinned to the bottom of the visible area */
     panel.style.setProperty('--vv-h', Math.round(h)+'px');
     panel.style.setProperty('--vv-top', Math.round(t)+'px');
     panel.classList.add('dc-kb');
