@@ -2558,17 +2558,23 @@ function initRest(){
       history.push({role:'assistant',content:reply});
       setTimeout(function(){ deliver(reply,finish); },Math.max(0,750-(Date.now()-t0)));
     };
-    var soc=socialReply(text);
-    if (soc){ setTimeout(function(){ done(soc); },250); return; }
-    var faq=faqReply(text);
-    if (faq){ setTimeout(function(){ done(faq); },350+Math.random()*350); return; }
-    if (intentOf(text)==='fishing'){ setTimeout(function(){ done(basicAnswer(text)); },300+Math.random()*300); return; }
+    /* local canned answers (greetings / FAQ / fishing / basic) */
+    var localAnswer=function(){
+      var soc=socialReply(text); if (soc) return soc;
+      var faq=faqReply(text); if (faq) return faq;
+      var b=basicAnswer(text); return b===T().nomatch ? null : b;
+    };
     if (CHAT_ENDPOINT){
+      /* AI first: every message goes to the AI so it talks like a person; canned answers only if the AI is unreachable */
       askAI().then(done).catch(function(e){
         if (window.console) console.warn('[DIB chat]',e);
-        var b=basicAnswer(text); done(b===T().nomatch ? T().err : b);
+        done(localAnswer() || T().err);
       });
     } else {
+      var soc=socialReply(text);
+      if (soc){ setTimeout(function(){ done(soc); },250); return; }
+      var faq=faqReply(text);
+      if (faq){ setTimeout(function(){ done(faq); },350+Math.random()*350); return; }
       setTimeout(function(){ done(basicAnswer(text)); },300+Math.random()*300);
     }
   }
