@@ -1157,6 +1157,35 @@ section.dibchat{
   }
 }
 .dibchat .dc-log{ gap:8px; }
+
+/* ---- photo gallery: circular cover-flow (front photo + caption, then it steps back and the next comes forward) ---- */
+.slider{ background:none; border:0; box-shadow:none; border-radius:0; margin-inline:-22px; padding:6px 0 0; overflow:hidden; }
+.slider .sl-stage{ width:min(74%,310px); margin:0 auto; aspect-ratio:4/5; overflow:visible; }
+.slider .sl-slide{
+  visibility:visible; opacity:0; z-index:1; pointer-events:none;
+  border-radius:20px; overflow:hidden; background:#06173f; border:1px solid rgba(236,244,255,.18);
+  transform:translateX(0%) scale(.7) perspective(800px) rotateY(0deg);
+  transition:transform .75s cubic-bezier(.45,.05,.25,1), opacity .6s ease, box-shadow .5s ease;
+  will-change:transform, opacity;
+}
+.slider .sl-slide.pos-fl{ transform:translateX(-30%) scale(.7) perspective(800px) rotateY(18deg); }
+.slider .sl-slide.pos-fr{ transform:translateX(30%)  scale(.7) perspective(800px) rotateY(-18deg); }
+.slider .sl-slide.pos-l{ opacity:.55; z-index:2; pointer-events:auto; cursor:pointer;
+  transform:translateX(-68%) scale(.84) perspective(800px) rotateY(18deg); }
+.slider .sl-slide.pos-r{ opacity:.55; z-index:2; pointer-events:auto; cursor:pointer;
+  transform:translateX(68%)  scale(.84) perspective(800px) rotateY(-18deg); }
+.slider .sl-slide.active{ opacity:1; z-index:3; pointer-events:auto; visibility:visible;
+  transform:translateX(0%) scale(1) perspective(800px) rotateY(0deg);
+  box-shadow:0 22px 54px rgba(0,0,0,.55), 0 0 0 1px rgba(255,200,61,.55), 0 0 36px rgba(31,209,255,.22); }
+/* caption only on the front photo */
+.slider .sl-cap{ padding:56px 14px 16px; opacity:0; transition:opacity .5s ease .15s; }
+.slider .sl-slide.active .sl-cap{ opacity:1; }
+.slider .sl-cap h3{ font-size:1rem; }
+.slider .sl-cap p{ font-size:.8rem; }
+/* arrows + dots sit outside the photo, like the video dots */
+.slider .sl-nav{ top:calc(50% - 14px); }
+.slider .sl-dots{ position:static; margin:14px 0 4px; }
+@media (prefers-reduced-motion:reduce){ .slider .sl-slide, .slider .sl-cap{ transition:none; } }
 </style>
 </head>
 <body>
@@ -1894,10 +1923,25 @@ function initRest(){
     d.addEventListener('click',function(){ go(i); restart(); }); dotsBox.appendChild(d); return d;
   });
   function go(n){
-    cur=(n+slides.length)%slides.length;
-    slides.forEach(function(sl,i){ sl.classList.toggle('active',i===cur); sl.setAttribute('aria-hidden',i===cur?'false':'true'); });
+    var N=slides.length; cur=(n+N)%N;
+    slides.forEach(function(sl,i){
+      var off=((i-cur)%N+N)%N; if(off>N/2) off-=N;      /* -4..4 : position around the circle */
+      sl.classList.toggle('active',off===0);
+      sl.classList.toggle('pos-l',off===-1);
+      sl.classList.toggle('pos-r',off===1);
+      sl.classList.toggle('pos-fl',off<-1);
+      sl.classList.toggle('pos-fr',off>1);
+      sl.setAttribute('aria-hidden',off===0?'false':'true');
+      var b=sl.querySelector('.gal-open'); if(b) b.tabIndex=(off===0?0:-1);
+    });
     dots.forEach(function(d,i){ d.classList.toggle('on',i===cur); });
   }
+  /* tapping a side photo brings it to the front instead of opening the lightbox */
+  slides.forEach(function(sl,i){
+    sl.addEventListener('click',function(e){
+      if(!sl.classList.contains('active')){ e.stopPropagation(); e.preventDefault(); go(i); restart(); }
+    },true);
+  });
   function lbOpen(){ var lb=document.getElementById('lightbox'); return lb && !lb.hidden; }
   function tick(){ if(!inView||hover||document.hidden||lbOpen()) return; go(cur+1); }
   function start(){ if(reduce||timer) return; timer=setInterval(tick,DELAY); }
