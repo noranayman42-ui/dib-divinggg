@@ -2231,6 +2231,261 @@ function initRest(){
     return null;
   }
 
+  /* ---------- extra FAQ: common worries & questions (answered instantly, 5 languages) ----------
+     To add a new question later: copy one {…} block, change its patterns (re) and answers (a). Order matters: the first match wins. */
+  var FAQ_CTA={
+    ar:'لو عندك أي سؤال تاني كلمنا على واتساب (متاحين ٢٤ ساعة):',
+    en:'Any other question? Message us on WhatsApp (online 24 hours):',
+    ru:'Остались вопросы? Напишите нам в WhatsApp (на связи 24 часа):',
+    de:'Noch Fragen? Schreiben Sie uns per WhatsApp (24 Stunden erreichbar):',
+    it:'Altre domande? Scrivici su WhatsApp (online 24 ore):'
+  };
+  var FAQ=[
+    { k:'health', cta:'link',
+      re:{
+        ar:/(^|\s)(ب|ال|بال)?ربو(?=\s|$)|السكر|سكر|سكري|السكري|القلب|قلبي|ضغط الدم|ضغط عالي|ضغط مرتفع|صرع|حامل|حوامل|(^|\s)(ال|بال)?حمل(?=\s|$)|عمليه جراحيه|جراحه|عمليه في|عملت عمليه|اجريت عمليه|ادويه|مرض|امراض|مريض|حاله صحيه|مشاكل صحيه|مشكله صحيه|مشاكل في الصدر|حساسيه|غضروف/,
+        en:/\b(asthma\w*|diabet\w*|heart|blood pressure|hypertension|epilep\w*|seizure\w*|pregnan\w*|medical|medication\w*|medicine\w*|surgery|surgical|health (conditions?|problems?|issues?)|illness|disease\w*|disabilit\w*|disabled|injur\w*|back (problems?|pain)|cardiac|allerg\w*|chronic)\b/,
+        ru:/астм\S*|диабет\S*|сердц\S*|сердеч\S*|гипертони\S*|высок\S* давлени\S*|эпилеп\S*|беремен\S*|лекарств\S*|операци\S*|заболеван\S*|болезн\S*|здоровь\S*|травм\S*|инвалид\S*|аллерг\S*|противопоказан\S*/,
+        de:/asthma|diabet\w*|herz\w*|bluthochdruck|epilep\w*|schwanger\w*|medikament\w*|operation\w*|vorerkrank\w*|krankheit\w*|gesundheit\w*|behinder\w*|verletz\w*|allerg\w*|kontraindik\w*|tauchtauglich\w*/,
+        it:/asma|diabet\w*|cuore|cardiac\w*|cardio\w*|pressione alta|ipertension\w*|epiless\w*|incinta|gravidanza|farmac\w*|medicin\w*|operazion\w*|malatt\w*|salute|disabil\w*|infortun\w*|allergi\w*|controindicaz\w*/
+      },
+      a:{
+        ar:"صحتك أولاً 💙 معظم الناس بيقدروا يغوصوا بأمان، لكن في حالات زي الربو أو السكر أو أمراض القلب أو الصرع لازم رأي الدكتور قبل الغوص، وفي الحمل بيتنصح بعدم الغوص.\n\nزي أي مركز غوص معتمد PADI، بتملى استمارة طبية بسيطة قبل الغوص وتجاوب عليها بصراحة. ولو في أي إجابة فيها علامة استفهام، هتحتاج موافقة دكتور الأول (ويفضّل دكتور عنده خبرة في طب الغوص).\n\nأحسن حاجة تحكيلنا حالتك على واتساب ونقولك الخطوة الصح:",
+        en:"Your health comes first 💙 Most people can dive safely, but some conditions — such as asthma, diabetes, heart conditions or epilepsy — need a doctor's opinion before diving, and diving is not recommended during pregnancy.\n\nAs at any PADI dive centre, you fill in a short medical questionnaire before diving and answer it honestly. If any answer raises a flag, you'll need a doctor's sign-off first (ideally from a doctor familiar with dive medicine).\n\nThe best step is to tell our team about your situation on WhatsApp and we'll guide you:",
+        ru:"Ваше здоровье — на первом месте 💙 Большинство людей могут нырять безопасно, но при некоторых состояниях — например, астма, диабет, болезни сердца или эпилепсия — перед погружением нужно мнение врача, а во время беременности дайвинг не рекомендуется.\n\nКак и в любом дайв-центре PADI, перед погружением вы заполняете короткую медицинскую анкету и отвечаете честно. Если какой-то ответ вызывает вопросы, сначала потребуется разрешение врача (лучше — знакомого с водолазной медициной).\n\nПроще всего описать свою ситуацию нашей команде в WhatsApp — мы подскажем, что делать дальше:",
+        de:"Ihre Gesundheit steht an erster Stelle 💙 Die meisten Menschen können sicher tauchen, doch bei manchen Erkrankungen – etwa Asthma, Diabetes, Herzerkrankungen oder Epilepsie – ist vor dem Tauchen eine ärztliche Einschätzung nötig; in der Schwangerschaft wird vom Tauchen abgeraten.\n\nWie in jedem PADI-Tauchcenter füllen Sie vor dem Tauchgang einen kurzen Gesundheitsfragebogen ehrlich aus. Bei auffälligen Antworten brauchen Sie zuerst das Okay eines Arztes (idealerweise mit tauchmedizinischer Erfahrung).\n\nAm besten schildern Sie unserem Team Ihre Situation per WhatsApp – wir sagen Ihnen, wie es weitergeht:",
+        it:"La tua salute viene prima di tutto 💙 La maggior parte delle persone può immergersi in sicurezza, ma con alcune condizioni — come asma, diabete, problemi cardiaci o epilessia — serve il parere di un medico prima di immergersi, e in gravidanza l'immersione è sconsigliata.\n\nCome in ogni centro PADI, prima dell'immersione si compila con sincerità un breve questionario medico. Se qualche risposta solleva dubbi, serve prima l'ok di un medico (meglio se esperto di medicina subacquea).\n\nIl modo migliore è raccontare la tua situazione al nostro team su WhatsApp: ti diremo cosa fare:"
+      } },
+
+    { k:'sharks',
+      re:{
+        ar:/القرش|القروش|اسماك قرش|سمك قرش|قروش البحر|قرش البحر|فيه قروش|في قروش|فيه قرش|في قرش|حيوانات بحريه|كائنات بحريه|مخلوقات بحريه|لدغه|تلدغ|يلدغ|عقرب|قنديل|قناديل|ثعبان|ثعابين|اخطبوط|اسماك خطيره|سمك خطير|اسماك مفترسه|سمك مفترس|حيوانات خطيره|اسماك ساما|سمك سام|(^|\s)(بتعض|بيعض|يعض|تعض)(?=\s|$)/,
+        en:/\b(sharks?|jelly\s?fish|stings?|stinging|stingrays?|barracudas?|morays?|eels?|sea urchins?|dangerous (fish|animals?|marine life|sea creatures?|creatures?)|venom\w*|poisonous|bite|bites|bitten)\b/,
+        ru:/акул\S*|медуз\S*|(^|\s)(скат|скаты|скатов|скатом)(?=\s|$)|мурен\S*|ядовит\S*|опасн\S* (рыб|животн|морск|существ)\S*|кусаются|кусает|укус\S*|жалит\S*|жалят|морск\S* [её]ж\S*/,
+        de:/(^|\s)hai(e|en)?(?=\s|$)|haifisch\w*|qualle\w*|quallen|stachelrochen|rochen|muräne\w*|giftig\w*|gefährlich\w* (fisch|tier|meer)\w*|(^|\s)(bisse|biss|beißen|beissen|beisst|beißt)(?=\s|$)|seeigel|sticht|stechen|stiche/,
+        it:/squal\w*|medus\w*|razza\b|razze\b|murena\w*|velenos\w*|pesci pericolos\w*|animali pericolos\w*|(^|\s)(morso|morde|mordere|morsi)(?=\s|$)|riccio di mare|ricci di mare|punge|pungere|puntur\w*/
+      },
+      a:{
+        ar:"اطمّن 😊 مواقع الغوص عندنا فيها عالم بحري جميل ومسالم — شعاب مرجانية وأسماك ملونة. معظم الكائنات البحرية مش خطيرة على الغواصين، والحوادث نادرة جداً، والاعتداء على الغواصين نادر جداً جداً.\n\nالقاعدة الذهبية: «شوف بس ولا تلمس». ما تلمسش أي مخلوق ولا مرجان ولا تجري ورا الأسماك، والمدرب بيوضّح لك قبل النزول إيه اللي تتجنبه وبيفضل معاك طول الغوصة. 🐠",
+        en:"Rest easy 😊 Our dive sites are full of beautiful, peaceful marine life — coral reefs and colourful fish. Most sea creatures are harmless to divers, incidents are rare, and attacks on divers are extremely rare.\n\nThe golden rule is “look, don't touch”: don't touch or chase any animal or coral. Your instructor briefs you on what to avoid before the dive and stays with you throughout. 🐠",
+        ru:"Не переживайте 😊 На наших местах для дайвинга — красивый и спокойный подводный мир: коралловые рифы и яркие рыбы. Большинство морских обитателей не опасны для дайверов, происшествия редки, а нападения на дайверов — крайне редки.\n\nГлавное правило — «смотри, но не трогай»: не прикасайтесь к животным и кораллам и не гоняйтесь за рыбами. Инструктор заранее расскажет, чего избегать, и будет рядом на протяжении всего погружения. 🐠",
+        de:"Keine Sorge 😊 Unsere Tauchplätze bieten eine wunderschöne, friedliche Unterwasserwelt – Korallenriffe und bunte Fische. Die meisten Meerestiere sind für Taucher harmlos, Zwischenfälle sind selten, und Angriffe auf Taucher kommen äußerst selten vor.\n\nDie goldene Regel lautet „Schauen, nicht anfassen“: keine Tiere oder Korallen berühren und keinen Fischen nachjagen. Ihr Tauchlehrer erklärt vorab, was zu vermeiden ist, und bleibt die ganze Zeit bei Ihnen. 🐠",
+        it:"Stai tranquillo 😊 I nostri siti di immersione ospitano una vita marina bellissima e tranquilla: barriere coralline e pesci colorati. La maggior parte degli animali marini è innocua per i subacquei, gli incidenti sono rari e gli attacchi ai subacquei sono rarissimi.\n\nLa regola d'oro è «guarda, non toccare»: non toccare né inseguire animali o coralli. L'istruttore ti spiega prima cosa evitare e resta con te per tutta l'immersione. 🐠"
+      } },
+
+    { k:'hijab', cta:'link',
+      re:{
+        ar:/حجاب|محجب|المحجبات|منتقب|نقاب|خمار|طرحه/,
+        en:/\b(hijab\w*|veil\w*|niqab|head\s?scarf|scarf|modest\w*|cover(ing)? (my |the )?hair|abaya)\b/,
+        ru:/хиджаб\S*|никаб\S*|платок|платк\S*|покрыт\S* волос\S*|закрыт\S* одежд\S*|скромн\S* одежд\S*/,
+        de:/hidschab|hijab|kopftuch|niqab|schleier|verschleier\w*|haare bedeck\w*/,
+        it:/hijab|niqab|(^|\s)velo(?=\s|$)|velat\w*|foulard|coprire i capelli|capelli coperti|testa coperta/
+      },
+      a:{
+        ar:"طبعاً، المحجبات يقدروا يغوصوا ويستمتعوا 🌊 بيلبسوا بدلة غوص ساترة مع غطاء راس مخصوص للمياه (زي حجاب السباحة أو الهود) بيتثبت بشكل مريح تحت القناع.\n\nقولنا من الأول على واتساب عشان نرتّب لك الأنسب ونراعي راحتك وخصوصيتك:",
+        en:"Absolutely — women who wear a hijab can dive and enjoy it 🌊 You wear a full-coverage wetsuit with a swim hijab or neoprene hood that sits comfortably under the mask.\n\nLet us know in advance on WhatsApp and we'll arrange everything to suit your comfort and privacy:",
+        ru:"Конечно — девушки и женщины в хиджабе тоже могут нырять 🌊 Вы надеваете закрытый гидрокостюм и специальный плавательный хиджаб или неопреновый капюшон, который удобно сидит под маской.\n\nСообщите нам заранее в WhatsApp — мы всё организуем с учётом вашего комфорта и приватности:",
+        de:"Selbstverständlich – auch Frauen mit Hidschab können tauchen und es genießen 🌊 Sie tragen einen bedeckenden Neoprenanzug mit einem Schwimm-Hidschab oder einer Neoprenhaube, die bequem unter der Maske sitzt.\n\nSagen Sie uns vorab per WhatsApp Bescheid – wir organisieren alles passend zu Ihrem Komfort und Ihrer Privatsphäre:",
+        it:"Certamente — anche le donne che indossano l'hijab possono immergersi e divertirsi 🌊 Si indossa una muta coprente con un hijab da nuoto o un cappuccio in neoprene, comodo sotto la maschera.\n\nAvvisaci prima su WhatsApp e organizzeremo tutto nel rispetto del tuo comfort e della tua privacy:"
+      } },
+
+    { k:'glasses', cta:'link',
+      re:{
+        ar:/نظار|نضار|عدسات|عدسه لاصقه|ضعف نظر|ضعف البصر|قصر نظر|نظري ضعيف|نظري مش كويس/,
+        en:/\b(glasses|eyeglasses|spectacles|contact lenses|contact lens|lenses|eyesight|short.?sighted|near.?sighted|far.?sighted|poor vision|bad eyes|bad eyesight|prescription (mask|lenses|glasses)|diopters?)\b/,
+        ru:/(^|\s)очк\S*|линз\S*|зрени\S*|близору\S*|дальнозор\S*/,
+        de:/brille\w*|kontaktlinse\w*|(^|\s)linsen|sehschwäche|kurzsicht\w*|weitsicht\w*|fehlsicht\w*|sehstärke|dioptrie\w*/,
+        it:/occhiali|lenti a contatto|(^|\s)lenti(?=\s|$)|miopi\w*|ipermetrop\w*|diottrie|difetti? visiv\w*|problemi di vista|vedo poco/
+      },
+      a:{
+        ar:"مفيش مشكلة 👓 العدسات اللاصقة اللينة ممكن تلبسها تحت القناع عادي. أما النظارة الطبية فمش بتتلبس تحت المياه، لكن في أقنعة غوص بعدسات طبية بتخليك تشوف كويس تحت الماء.\n\nقولنا على واتساب قبل الحجز (وياريت تكتب درجة نظرك أو إنك بتلبس عدسات) عشان نشوف أنسب حل ليك:",
+        en:"No problem 👓 Soft contact lenses can be worn under the mask as normal. Prescription glasses can't be worn underwater, but there are dive masks with corrective lenses that let you see clearly.\n\nMessage us on WhatsApp before booking (with your prescription, or that you wear contacts) and we'll find the best solution for you:",
+        ru:"Не проблема 👓 Мягкие контактные линзы можно носить под маской как обычно. Обычные очки под водой не надеть, но существуют маски с диоптрическими линзами, в которых вы будете хорошо видеть.\n\nНапишите нам в WhatsApp перед бронированием (укажите свои диоптрии или что носите линзы), и мы подберём лучшее решение:",
+        de:"Kein Problem 👓 Weiche Kontaktlinsen können wie gewohnt unter der Maske getragen werden. Eine normale Brille geht unter Wasser nicht, aber es gibt Tauchmasken mit Korrekturgläsern, durch die Sie klar sehen.\n\nSchreiben Sie uns vor der Buchung per WhatsApp (mit Ihrer Sehstärke oder dem Hinweis auf Kontaktlinsen), dann finden wir die beste Lösung:",
+        it:"Nessun problema 👓 Le lenti a contatto morbide si possono usare sotto la maschera normalmente. Gli occhiali da vista non si portano sott'acqua, ma esistono maschere con lenti graduate per vedere bene.\n\nScrivici su WhatsApp prima di prenotare (con le tue diottrie o indicando che porti le lenti) e troveremo la soluzione migliore:"
+      } },
+
+    { k:'seasick',
+      re:{
+        ar:/دوار البحر|دوار بحر|بدوخ|هدوخ|دوخه|دوخان|دايخ|غثيان|اتقيا|ترجيع|هرجع|بتعب من المراكب|بتعب في البحر|بتعبني المراكب/,
+        en:/\b(sea ?sick\w*|motion sick\w*|nausea|nauseous|queasy|vomit\w*|throw up|get sick on (the )?boat)\b/,
+        ru:/морск\S* болезн\S*|укачива\S*|укач\S*|тошнит\S*|тошнот\S*|рвот\S*|тошнило/,
+        de:/seekrank\w*|reisekrank\w*|übelkeit|übel (wird|ist)|schlecht wird|erbrechen|kotzen/,
+        it:/mal di mare|nause\w*|vomit\w*|cinetosi|mal d'auto|mal di barca/
+      },
+      a:{
+        ar:"ده شائع جداً ومالوش علاقة بالغوص نفسه 😊 كتير بيحسوا بتحسّن أول ما ينزلوا المياه. كام نصيحة بسيطة: كُل وجبة خفيفة قبل الرحلة (لا معدة فاضية ولا مليانة)، اشرب مياه، اقعد في الهواء الطلق وبص على الأفق، ولو بتدوخ دايماً اسأل الصيدلي عن دواء دوار البحر وخده قبل الرحلة بوقت كافي.\n\nولو حسيت بتعب قول للمدرب أو الطاقم وهيساعدوك.",
+        en:"That's very common and has nothing to do with diving itself 😊 Many people feel better as soon as they're in the water. A few simple tips: have a light meal before the trip (not on an empty or full stomach), drink water, stay in the fresh air and look at the horizon — and if you're prone to it, ask a pharmacist about motion-sickness tablets and take them in good time.\n\nIf you feel unwell, tell your instructor or the crew and they'll help.",
+        ru:"Это очень распространено и не связано с самим дайвингом 😊 Многим становится лучше, как только они оказываются в воде. Несколько простых советов: лёгкий приём пищи перед выходом (не на голодный и не на полный желудок), пейте воду, оставайтесь на свежем воздухе и смотрите на горизонт; если вы склонны к укачиванию, спросите в аптеке средство от морской болезни и примите его заранее.\n\nЕсли вам нехорошо, скажите инструктору или экипажу — вам помогут.",
+        de:"Das ist sehr verbreitet und hat mit dem Tauchen selbst nichts zu tun 😊 Vielen geht es im Wasser sofort besser. Ein paar einfache Tipps: vorher eine leichte Mahlzeit essen (weder nüchtern noch zu voll), Wasser trinken, an der frischen Luft bleiben und den Horizont anschauen – und wenn Sie anfällig sind, fragen Sie in der Apotheke nach einem Mittel gegen Seekrankheit und nehmen es rechtzeitig ein.\n\nWenn Ihnen schlecht wird, sagen Sie es dem Tauchlehrer oder der Crew – man hilft Ihnen.",
+        it:"È molto comune e non c'entra col tuo essere subacqueo 😊 A molti passa appena entrano in acqua. Qualche consiglio semplice: fai un pasto leggero prima dell'uscita (né a stomaco vuoto né troppo pieno), bevi acqua, resta all'aria aperta e guarda l'orizzonte; se sei soggetto al mal di mare, chiedi al farmacista un rimedio e prendilo con un certo anticipo.\n\nSe non ti senti bene, dillo all'istruttore o all'equipaggio: ti aiuteranno."
+      } },
+
+    { k:'ears',
+      re:{
+        ar:/ودن|ودني|ودان|الودان|ودنين|الاذن|اذني|اذنين|الاذنين|معادله الضغط|اعادل|اتعادل|ضغط الميه|ضغط المياه|ضغط الماء/,
+        en:/\b(ears?|ear pain|ear pressure|eardrums?|equali[sz]\w*|sinus\w*)\b/,
+        ru:/(^|\s)(ухо|уха|уши|ушей|ушам|ушах|ушки|ушную|ушной)(?=\s|$)|продув\S*|выравнива\S* давлени\S*|давлени\S* (в|на) уш\S*|баротравм\S*/,
+        de:/ohr\w*|druckausgleich\w*|trommelfell\w*|nebenhöhl\w*/,
+        it:/orecch\w*|timpan\w*|compensa\w*|seni nasali|seni paranasali/
+      },
+      a:{
+        ar:"سؤال مهم 👌 الإحساس بضغط في الودان وإنت نازل طبيعي جداً، والحل بسيط: بنعمل «معادلة الضغط» — تمسك مناخيرك برفق وتزفر بهدوء — وتكررها بدري وكتير من أول أمتار النزول. والمدرب بيوريك الطريقة قبل ما تنزل.\n\nالنزول بيكون بالتدريج وعلى سرعتك. ولو حسيت بوجع ما تكمّلش بالعافية: اطلع شوية وكرر المعادلة أو أشّر للمدرب. ومهم ما تغوصش وإنت عندك زكام أو انسداد في الأنف، عشان الودان تعادل الضغط براحتها.",
+        en:"Great question 👌 Feeling pressure in your ears while descending is completely normal, and the fix is easy: it's called “equalizing” — gently pinch your nose and blow softly. Do it early and often, starting from the first metres, and your instructor will show you how before you enter the water.\n\nWe descend gradually, at your pace. If you feel pain, don't push through: ascend a little, try again, or signal your instructor. It's also best not to dive with a cold or a blocked nose, so your ears can equalize comfortably.",
+        ru:"Хороший вопрос 👌 Давление в ушах при погружении — это совершенно нормально, а решение простое: «продувка» (выравнивание давления) — аккуратно зажмите нос и мягко выдохните. Делайте это рано и часто, с первых метров; инструктор заранее покажет, как.\n\nПогружаемся постепенно, в вашем темпе. Если появилась боль — не терпите: поднимитесь немного, повторите или подайте знак инструктору. Также лучше не нырять с насморком или заложенным носом, чтобы уши спокойно выравнивали давление.",
+        de:"Gute Frage 👌 Druck auf den Ohren beim Abtauchen ist völlig normal, und die Lösung ist einfach: der „Druckausgleich“ – Nase sanft zuhalten und vorsichtig hineinpusten. Am besten früh und oft, schon in den ersten Metern; Ihr Tauchlehrer zeigt Ihnen vorher, wie es geht.\n\nWir tauchen langsam und in Ihrem Tempo ab. Bei Schmerzen nicht durchziehen: ein Stück auftauchen, erneut versuchen oder dem Tauchlehrer ein Zeichen geben. Mit Erkältung oder verstopfter Nase sollte man nicht tauchen, damit der Druckausgleich gut klappt.",
+        it:"Ottima domanda 👌 Sentire pressione alle orecchie in discesa è del tutto normale e la soluzione è semplice: si chiama «compensazione» — tappati delicatamente il naso e soffia piano. Falla presto e spesso, fin dai primi metri; l'istruttore ti mostra come prima di entrare in acqua.\n\nScendiamo gradualmente, con il tuo ritmo. Se senti dolore non forzare: risali un po', riprova o fai segno all'istruttore. Meglio non immergersi con raffreddore o naso chiuso, così le orecchie compensano senza problemi."
+      } },
+
+    { k:'breath',
+      re:{
+        ar:/اتنفس|بتنفس|هتنفس|التنفس|تنفس|اختنق|اتخنق|هتخنق|هختنق|خنق|ضيق نفس|ضيق تنفس|النفس ينقطع|النفس يخلص|الهواء يخلص|الهواء هيخلص|اكسجين|اوكسجين|اغرق|هغرق|غرق|غريق|اتخض|هتخض|هلع|كلوستروفوبيا|مكان ضيق|لو حصل(ت)? (لي |ليا )?(حاجه|مشكله)|لو تعبت|لو حسيت/,
+        en:/\bbreath(e|es|ed|ing)?\b|\b(suffocat\w*|chok(e|ing)|drown\w*|claustrophob\w*|panic\w*|emergenc\w*)\b|out of air|run out of air|running out of air|something goes wrong|things go wrong|if something happens|what if i (panic|get scared|can't|cannot|feel)/,
+        ru:/дыш\S*|дыхани\S*|задохн\S*|задыха\S*|утону\S*|утонуть|тону(?=\s|$)|тонуть|паник\S*|клаустроф\S*|закончится воздух|кончится воздух|воздух закончит\S*|если что-то (пойд\S*|случит\S*)|что если что-то/,
+        de:/atm\w*|erstick\w*|ertrink\w*|luft (geht|ausgeh\w*|alle)|keine luft|luftnot|klaustrophob\w*|panik\w*|was wenn (etwas|mir etwas|ich panik|ich angst)|notfall/,
+        it:/respir\w*|soffoc\w*|anneg\w*|affogar\w*|finisce l'aria|aria finisce|finire l'aria|senza aria|claustrofob\w*|panic\w*|e se (succede|succedesse|mi succede|qualcosa|vado nel panico)|emergenz\w*/
+      },
+      a:{
+        ar:"متقلقش 💙 التنفس تحت المياه بسيط جداً: بتتنفس بشكل طبيعي تماماً من خلال المنظّم (الريجيوليتور) اللي بيوصلك الهواء من التنك — زي ما بتتنفس بره بالظبط. والقاعدة الذهبية الوحيدة: ما تحبسش نفسك أبداً.\n\nالمدرب بيراقب كمية الهواء والعمق طول الغوصة، وبنتفق على إشارات اليد قبل النزول. ولو حسيت بأي قلق في أي لحظة، بتدّيله إشارة ويتصرف معاك فوراً. وكمان بنتدرّب على التنفس الأول في مياه قليلة العمق قبل ما نتعمّق. 🤿",
+        en:"Don't worry 💙 Breathing underwater is simple: you breathe normally through a regulator that delivers air from your tank — just like breathing on land. The one golden rule: never hold your breath.\n\nYour instructor monitors your air and depth throughout the dive, and we agree on hand signals before entering the water. If you feel uneasy at any moment, just signal and your instructor helps you right away. We also practise breathing first in shallow water before going any deeper. 🤿",
+        ru:"Не волнуйтесь 💙 Дышать под водой просто: вы дышите как обычно через регулятор, который подаёт воздух из баллона — точно так же, как на суше. Главное правило — никогда не задерживайте дыхание.\n\nИнструктор следит за запасом воздуха и глубиной на протяжении всего погружения, а жесты мы согласуем заранее. Если станет не по себе, просто подайте сигнал — инструктор сразу поможет. Сначала мы тренируем дыхание на мелководье и только потом идём глубже. 🤿",
+        de:"Keine Sorge 💙 Unter Wasser zu atmen ist einfach: Sie atmen ganz normal über den Atemregler, der Luft aus der Flasche liefert – genau wie an Land. Die goldene Regel: nie die Luft anhalten.\n\nIhr Tauchlehrer überwacht Luftvorrat und Tiefe während des gesamten Tauchgangs, und die Handzeichen besprechen wir vorab. Wenn Ihnen unwohl wird, geben Sie einfach ein Zeichen – der Lehrer hilft sofort. Das Atmen üben wir zuerst im flachen Wasser, bevor es tiefer geht. 🤿",
+        it:"Nessun problema 💙 Respirare sott'acqua è semplice: si respira normalmente attraverso l'erogatore, che fornisce l'aria dalla bombola — esattamente come fuori dall'acqua. L'unica regola d'oro: non trattenere mai il respiro.\n\nL'istruttore controlla aria e profondità per tutta l'immersione e i segnali con le mani si concordano prima di entrare in acqua. Se ti senti a disagio, basta un segnale e l'istruttore interviene subito. Prima si fa pratica di respirazione in acque basse, poi si scende. 🤿"
+      } },
+
+    { k:'certificate', cta:'full',
+      re:{
+        ar:/(لازم|محتاج|ضروري|مطلوب|يشترط|اشترط|بيشترطوا|يلزم|الزم|لازمه).{0,25}(شهاد|رخص|كارنيه|ترخيص)|(شهاد|رخص|كارنيه|ترخيص).{0,25}(لازم|ضروري|مطلوب|محتاج|يشترط|يلزم)|من غير شهاد|بدون شهاد|معنديش شهاد|ماعنديش شهاد|معيش شهاد|مفيش معايا شهاد/,
+        en:/(need|require\w*|necessary|mandatory|must).{0,15}(a |any |the |my )?(certification|certificate|licen[sc]e|qualification)\b|(certification|certificate|licen[sc]e|qualification).{0,25}(needed|required|necessary|mandatory)|without (a )?(certification|certificate|licen[sc]e|qualification)|no (certification|certificate|licen[sc]e|qualification)|not certified|don't have (a )?(certification|certificate|licen[sc]e)/,
+        ru:/(нуж(ен|на|но|ны)|нужн\S*|обязательн\S*|требуется|необходим\S*).{0,25}(сертификат\S*|лиценз\S*|права|удостоверени\S*)|(сертификат\S*|лиценз\S*|удостоверени\S*).{0,25}(нуж(ен|на|но|ны)|нужн\S*|обязательн\S*|необходим\S*)|без сертификат\S*|нет сертификат\S*|без лиценз\S*/,
+        de:/(brauche|brauchen|benötige|benötigt|muss|erforderlich|nötig|notwendig|pflicht).{0,25}(zertifikat\w*|tauchschein\w*|lizenz\w*|brevet\w*|tauchausweis\w*)|(zertifikat\w*|tauchschein\w*|lizenz\w*|brevet\w*).{0,25}(nötig|notwendig|erforderlich|pflicht|brauche|brauchen)|ohne (zertifikat\w*|tauchschein\w*|lizenz\w*|brevet\w*)|kein(en)? (tauchschein|zertifikat|brevet)/,
+        it:/(serve|servono|occorre|occorrono|necessari\w*|obbligator\w*|devo avere|ci vuole).{0,25}(brevetto|certificat\w*|licenza|patente)|(brevetto|certificat\w*|licenza|patente).{0,25}(serve|obbligator\w*|necessari\w*|richiest\w*)|senza (brevetto|certificat\w*|licenza|patente)|non ho (il )?(brevetto|certificat\w*|patente)/
+      },
+      a:{
+        ar:"لا، مش لازم شهادة للتجربة الأولى ✅ في «تجربة الغوص للمبتدئين» (Discover Scuba Dive) بتغوص مع مدرب معتمد من غير أي شهادة أو خبرة سابقة.\n\nولو حبيت تكمّل وتغوص بشكل مستقل مع شريك أو لأعماق أكبر، هتحتاج شهادة زي Open Water Diver (دورة ٣ أيام عندنا)، وبعدها تقدر تطوّر لمستويات أعلى.",
+        en:"No, you don't need a certification for your first dive ✅ With the Discover Scuba Dive you dive with a certified instructor, with no certificate or previous experience required.\n\nIf you'd like to continue and dive independently with a buddy or go deeper, you'll need a certification such as Open Water Diver (a 3-day course with us), and you can progress to higher levels after that.",
+        ru:"Нет, для первого погружения сертификат не нужен ✅ На «Discover Scuba Dive» вы ныряете с сертифицированным инструктором — без сертификата и опыта.\n\nЕсли захотите продолжить и нырять самостоятельно с напарником или глубже, понадобится сертификат, например Open Water Diver (у нас курс на 3 дня), а дальше можно развиваться до более высоких уровней.",
+        de:"Nein, für den ersten Tauchgang brauchen Sie keinen Tauchschein ✅ Beim Discover Scuba Dive tauchen Sie mit einem zertifizierten Tauchlehrer – ganz ohne Zertifikat oder Vorerfahrung.\n\nWenn Sie weitermachen, selbstständig mit einem Buddy tauchen oder tiefer gehen möchten, brauchen Sie ein Brevet wie den Open Water Diver (bei uns ein 3-Tages-Kurs); danach können Sie sich weiter qualifizieren.",
+        it:"No, per la prima immersione non serve alcun brevetto ✅ Con il Discover Scuba Dive ti immergi con un istruttore certificato, senza certificazione né esperienza precedente.\n\nSe vuoi continuare e immergerti in autonomia con un compagno o andare più in profondità, serve un brevetto come l'Open Water Diver (da noi un corso di 3 giorni), poi potrai salire di livello."
+      } },
+
+    { k:'depth',
+      re:{
+        ar:/عمق|اعماق|كام متر|كم متر|بننزل كام|بنزل كام|لحد كام متر|قد ايه بنزل|اد ايه بنزل/,
+        en:/\b(how deep|depth|deeper|deepest)\b/,
+        ru:/глубин\S*|как глубоко|сколько метров/,
+        de:/tiefe|wie tief/,
+        it:/profondit\w*|quanto si scende|quanto scendiamo/
+      },
+      a:{
+        ar:"العمق بيتحدد حسب مستواك 🌊 في «تجربة الغوص للمبتدئين» بتفضل في مياه قليلة العمق (بحد أقصى حوالي ١٢ متر) تحت إشراف المدرب. وبعد الشهادة: Open Water Diver لحد ١٨ متر، وAdvanced لحد ٣٠ متر.\n\nوأغلب الألوان والحياة البحرية الجميلة بتكون في الأعماق القليلة، فالمبتدئ مش بيفوّت حاجة.",
+        en:"Depth depends on your level 🌊 On the Discover Scuba Dive you stay in shallow water (up to about 12 metres) under your instructor's supervision. After certification: Open Water Diver goes down to 18 metres and Advanced to 30 metres.\n\nMuch of the colour and marine life is in the shallower zones anyway, so beginners don't miss out.",
+        ru:"Глубина зависит от вашего уровня 🌊 На «Discover Scuba Dive» вы остаётесь на небольшой глубине (примерно до 12 метров) под присмотром инструктора. После сертификации: Open Water Diver — до 18 метров, Advanced — до 30 метров.\n\nБольшая часть красок и подводной жизни находится как раз на небольших глубинах, так что новички ничего не упускают.",
+        de:"Die Tiefe hängt von Ihrem Level ab 🌊 Beim Discover Scuba Dive bleiben Sie im flachen Wasser (bis etwa 12 Meter) unter Aufsicht Ihres Tauchlehrers. Nach der Zertifizierung: Open Water Diver bis 18 Meter, Advanced bis 30 Meter.\n\nDie meisten Farben und das Meeresleben findet man ohnehin in den flacheren Zonen – Anfänger verpassen also nichts.",
+        it:"La profondità dipende dal tuo livello 🌊 Nel Discover Scuba Dive resti in acque basse (fino a circa 12 metri) sotto la supervisione dell'istruttore. Dopo il brevetto: Open Water Diver fino a 18 metri, Advanced fino a 30 metri.\n\nBuona parte dei colori e della vita marina si trova comunque nelle zone meno profonde, quindi i principianti non si perdono nulla."
+      } },
+
+    { k:'bring', cta:'link',
+      re:{
+        ar:/اجيب (ايه|معايا|معاي)|اجيب ايه|اخد (ايه|معايا)|اخد معايا|ايه اللي (احتاجه|محتاجه|لازم اجيبه|الزم اجيبه)|احتاج ايه|اجهز ايه|اجهز نفسي|هجهز ايه|هجيب ايه|لازم اجيب|ماذا احضر|ماذا احتاج|ايه اللازم اجيبه|اجيب معايا|ملابس ايه|البس ايه|هلبس ايه|لبس ايه|مايوه|فوطه|منشفه/,
+        en:/what (do |should |can |must )?(i|we) (need to )?(bring|pack|wear|take|prepare)|what to (bring|pack|wear|take)|should i bring|do i need to bring|what do i need (to bring|for the)|what (to )?wear/,
+        ru:/что (взять|брать|привезти|надеть|захватить|иметь)|с собой (взять|брать)|что нужно (взять|привезти|с собой)|что брать/,
+        de:/was (muss|soll|sollte|kann|darf) ich (mitbringen|mitnehmen|anziehen|einpacken)|was mitbringen|was mitnehmen|was anziehen|was einpacken|was brauche ich/,
+        it:/cosa (devo |dovrei |posso |bisogna )?(portare|mettere|indossare|preparare)|che cosa (devo )?portare|cosa mi serve|cosa serve portare|portare con me/
+      },
+      a:{
+        ar:"للغوصة الأولى مش محتاج حاجات كتير 🎒 هات معاك: مايوه (يفضّل تلبسه تحت هدومك)، فوطة، ملابس للتغيير، واقي شمس (يفضّل صديق للشعاب المرجانية)، ونضارة شمس وكاب للمركب. ولو عندك شهادة غوص هات الكارت معاك، ولو بتدوخ على المراكب خد علاجك قبل الرحلة.\n\nأما معدات الغوص نفسها (القناع والزعانف والبدلة وغيرها) فاسأل فريقنا على واتساب إيه المتضمّن في رحلتك:",
+        en:"For a first dive you don't need much 🎒 Bring: a swimsuit (best worn under your clothes), a towel, a change of clothes, sunscreen (ideally reef-friendly), plus sunglasses and a hat for the boat. If you're a certified diver, bring your certification card, and if you're prone to seasickness, take your usual remedy beforehand.\n\nFor the diving equipment itself (mask, fins, wetsuit, etc.), ask our team on WhatsApp what's included in your trip:",
+        ru:"Для первого погружения много не нужно 🎒 Возьмите: купальный костюм (лучше надеть под одежду), полотенце, сменную одежду, солнцезащитный крем (желательно безопасный для рифов), а также очки и головной убор для лодки. Если вы сертифицированный дайвер — карту сертификации; если укачивает — заранее примите привычное средство.\n\nПо самому снаряжению (маска, ласты, гидрокостюм и т. д.) уточните у нашей команды в WhatsApp, что включено в вашу поездку:",
+        de:"Für den ersten Tauchgang brauchen Sie nicht viel 🎒 Mitbringen: Badekleidung (am besten unter der Kleidung tragen), ein Handtuch, Wechselkleidung, Sonnencreme (idealerweise riffschonend) sowie Sonnenbrille und Hut für das Boot. Als zertifizierter Taucher bringen Sie Ihre Brevetkarte mit, und bei Neigung zu Seekrankheit nehmen Sie vorher Ihr gewohntes Mittel.\n\nZur Tauchausrüstung selbst (Maske, Flossen, Anzug usw.) fragen Sie unser Team per WhatsApp, was in Ihrer Tour enthalten ist:",
+        it:"Per la prima immersione non serve molto 🎒 Porta: costume (meglio indossarlo sotto i vestiti), asciugamano, cambio, crema solare (meglio se rispettosa delle barriere coralline), occhiali da sole e cappello per la barca. Se sei già brevettato porta la tessera e, se soffri il mal di mare, prendi prima il tuo rimedio abituale.\n\nPer l'attrezzatura vera e propria (maschera, pinne, muta, ecc.) chiedi al nostro team su WhatsApp cosa è incluso nella tua uscita:"
+      } },
+
+    { k:'swim', cta:'full',
+      re:{
+        ar:/عوم|اعوم|بعوم|سباحه|السباحه|اسبح|بسبح|سباح|سباحين/,
+        en:/\b(swim(ming|mer|mers|s)?)\b/,
+        ru:/плава\S*|плавани\S*|(^|\s)пловец|пловц\S*/,
+        de:/schwimm\w*|nichtschwimmer|schwimmer/,
+        it:/nuot\w*/
+      },
+      a:{
+        ar:"ينفع جداً ✅ مش بنشترط إجادة السباحة في «تجربة الغوص للمبتدئين»، لأن المدرب بيرافقك خطوة بخطوة ويتحكم في حركتك ومعداتك بالكامل.\n\nولو حبيت بعد كده تاخد دورة شهادة (زي Open Water) فيها اختبار سباحة وطفو بسيط، والمدرب هيشرحه لك لما يجي وقته.",
+        en:"Yes, you can ✅ Swimming skills aren't required for the Discover Scuba Dive — your instructor stays with you step by step and fully controls your movement and equipment.\n\nIf you later take a certification course (such as Open Water), it includes a short, basic swim and float test — your instructor will explain it when the time comes.",
+        ru:"Да, можно ✅ Навыки плавания для «Discover Scuba Dive» не требуются — инструктор рядом на каждом шаге и полностью контролирует ваши движения и снаряжение.\n\nЕсли позже вы пойдёте на курс с сертификацией (например, Open Water), в нём есть короткая базовая проверка плавания и удержания на воде — инструктор объяснит всё, когда придёт время.",
+        de:"Ja, das geht ✅ Für den Discover Scuba Dive sind keine Schwimmkenntnisse nötig – Ihr Tauchlehrer begleitet Sie Schritt für Schritt und kontrolliert Ihre Bewegungen und Ausrüstung vollständig.\n\nWenn Sie später einen Zertifizierungskurs (z. B. Open Water) machen, gehört dazu ein kurzer, einfacher Schwimm- und Schwebetest – Ihr Tauchlehrer erklärt ihn Ihnen, wenn es soweit ist.",
+        it:"Sì, si può ✅ Per il Discover Scuba Dive non servono capacità di nuoto: l'istruttore ti segue passo dopo passo e controlla completamente i tuoi movimenti e l'attrezzatura.\n\nSe in seguito farai un corso di certificazione (come l'Open Water), è previsto un breve e semplice test di nuoto e galleggiamento: l'istruttore te lo spiegherà al momento giusto."
+      } },
+
+    { k:'hard',
+      re:{
+        ar:/(الغوص|التجربه|الكورس|الدوره|التعلم|التعليم|تعلمه|اتعلمه).{0,12}(صعب|سهل|معقد)|(صعب|سهل|صعبه|سهله|معقد).{0,12}(الغوص|التجربه|الكورس|الدوره|التعلم|تعلم)|هل (هو )?(صعب|سهل)|صعب اوي|صعبه اوي|صعب قوي|صعب جدا|مش صعب|الغوص صعب/,
+        en:/\bis (it|diving|scuba|this|the (dive|course|training))\b.{0,20}\b(hard|difficult|easy|complicated|tough)\b|\bhow (hard|difficult|easy)\b|\b(hard|difficult|easy|complicated) to (learn|dive|do)\b/,
+        ru:/сложно|трудно|тяжело|легко ли|это легко|не сложно|непросто/,
+        de:/(ist|wie).{0,15}(schwer|schwierig|leicht|kompliziert)|schwer zu lernen|schwierig zu lernen/,
+        it:/difficile|complicat\w*|(è|e'|e) facile|quanto è facile/
+      },
+      a:{
+        ar:"الغوص أسهل مما تتخيل 😊 المهارات الأساسية بسيطة (التنفس بالمنظّم، معادلة الضغط، وإشارات اليد)، والمدرب بيشرحها لك ويتدرّب معاك خطوة بخطوة قبل ما تتعمّق. مش محتاج لياقة رياضية عالية ولا خبرة سابقة، وأغلب الناس بيحسّوا براحة بعد دقايق قليلة في المياه.",
+        en:"Diving is easier than you think 😊 The basic skills are simple (breathing through the regulator, equalizing and hand signals), and your instructor explains and practises them with you step by step before you go any deeper. No high level of fitness or previous experience is needed, and most people feel comfortable within a few minutes in the water.",
+        ru:"Дайвинг проще, чем кажется 😊 Базовые навыки несложные (дыхание через регулятор, выравнивание давления и жесты), и инструктор объясняет и отрабатывает их с вами шаг за шагом, прежде чем вы погрузитесь глубже. Высокая физическая подготовка и опыт не нужны, и большинство людей чувствуют себя комфортно уже через несколько минут в воде.",
+        de:"Tauchen ist einfacher, als man denkt 😊 Die Grundfertigkeiten sind simpel (Atmen über den Regler, Druckausgleich und Handzeichen), und Ihr Tauchlehrer erklärt und übt sie Schritt für Schritt mit Ihnen, bevor es tiefer geht. Weder hohe Fitness noch Vorerfahrung sind nötig, und die meisten fühlen sich schon nach wenigen Minuten im Wasser wohl.",
+        it:"Immergersi è più facile di quanto pensi 😊 Le abilità di base sono semplici (respirare dall'erogatore, compensare e segnali con le mani) e l'istruttore le spiega e le prova con te passo dopo passo prima di scendere più in profondità. Non servono grande forma fisica né esperienza, e la maggior parte delle persone si sente a proprio agio dopo pochi minuti in acqua."
+      } },
+
+    { k:'fitness',
+      re:{
+        ar:/لياقه|لياقتي|تخين|تخينه|تخانه|سمين|سمينه|بدين|وزني|وزن زياده|وزن زايد|كبير في السن|كبر السن|سني كبير|مسن|عجوز|فوق الخمسين|فوق الستين|فوق الاربعين|كبره/,
+        en:/\b(unfit|out of shape|fitness|physically fit|overweight|obese|too heavy|too old|elderly|old age|senior|seniors|weight limit|upper age)\b/,
+        ru:/фитнес\S*|физическ\S* (подготовк|форм)\S*|лишн\S* вес\S*|избыточн\S* вес\S*|ожирен\S*|полнот\S*|пожил\S*|слишком стар\S*|в возрасте|ограничен\S* по весу|вес ограничен\S*/,
+        de:/fitness|kondition|übergewicht|zu alt|zu schwer|zu dick|ältere\w*|senior\w*|gewichtsgrenze|gewichtslimit|körperlich\w* (fit|verfassung)/,
+        it:/fitness|forma fisica|preparazione fisica|sovrappeso|obes\w*|troppo vecchi\w*|anzian\w*|troppo pesante|limite di peso|età avanzata|in età/
+      },
+      a:{
+        ar:"مفيش لياقة خاصة مطلوبة 💪 الغوص بيعتمد على الهدوء والتنفس أكتر من القوة، ومش هتشيل وزن المعدات تحت الماء. المهم تكون صحتك العامة كويسة (وبنملى استمارة طبية بسيطة قبل الغوص). وكمان مفيش حد أقصى للسن طالما صحتك تسمح — فيه ناس بتبدأ الغوص في الخمسينات والستينات.",
+        en:"No special fitness level is required 💪 Diving relies more on staying calm and breathing steadily than on strength, and you don't carry the weight of the equipment underwater. What matters is good general health (you'll fill in a short medical questionnaire before diving). There's also no upper age limit as long as your health allows — plenty of people start diving in their fifties and sixties.",
+        ru:"Особая физическая подготовка не нужна 💪 В дайвинге важнее спокойствие и ровное дыхание, чем сила, а вес снаряжения под водой вы не ощущаете. Главное — хорошее общее состояние здоровья (перед погружением вы заполните короткую медицинскую анкету). Верхнего возрастного предела тоже нет, если позволяет здоровье — многие начинают нырять в пятьдесят и шестьдесят лет.",
+        de:"Es ist keine besondere Fitness nötig 💪 Beim Tauchen kommt es mehr auf Ruhe und gleichmäßiges Atmen an als auf Kraft, und das Gewicht der Ausrüstung spüren Sie unter Wasser nicht. Wichtig ist eine gute allgemeine Gesundheit (vor dem Tauchen füllen Sie einen kurzen Gesundheitsfragebogen aus). Eine obere Altersgrenze gibt es nicht, solange die Gesundheit mitspielt – viele fangen mit 50 oder 60 an.",
+        it:"Non serve una forma fisica particolare 💪 Nelle immersioni contano più calma e respirazione regolare che la forza, e sott'acqua non senti il peso dell'attrezzatura. Conta una buona salute generale (prima dell'immersione si compila un breve questionario medico). Non c'è un limite massimo di età finché la salute lo permette: molte persone iniziano a cinquanta o sessant'anni."
+      } },
+
+    { k:'fear', cta:'full',
+      re:{
+        ar:/خايف|خايفه|خايفين|خوف|بخاف|اخاف|هخاف|مرعوب|قلقان|قلقانه|قلق|متوتر|متوتره|توتر|رهبه|فوبيا|مرتعب|مخضوض|خضه|مش مطمن|مش مرتاح|مش مطمئن|مش واثق|هيبه/,
+        en:/\b(afraid|scared|scary|frighten\w*|fear\w*|nervous\w*|anxious|anxiety|worried|worry|worries|terrified|petrified|phobi\w*|apprehensive|intimidat\w*)\b/,
+        ru:/боюсь|боимся|боится|бояться|боязн\S*|(^|\s)страшно|страшн\S*|нервнич\S*|волнуюсь|волнени\S*|переживаю|тревож\S*|паник\S*|жутко|пугает|пугаюсь|испуг\S*/,
+        de:/angst|ängstlich|ängste|furcht\w*|nervös|beunruhig\w*|aufgeregt|panik|schiss|unsicher|bedenken/,
+        it:/paura|impaur\w*|spaventat\w*|spavent\w*|ansia|ansios\w*|nervos\w*|agitat\w*|preoccupat\w*|terroriz\w*|timore|timoros\w*|fifa/
+      },
+      a:{
+        ar:"إحساسك طبيعي جداً 💙 كتير من اللي بيجربوا الغوص لأول مرة بيبقوا قلقانين في الأول، وبعد دقايق في المياه بيحبّوه.\n\nمعاك مدرب معتمد جنبك طول الوقت، وبنبدأ بشرح بسيط على الشاطئ وبعدين بنتدرّج على مهلنا في مياه هادية قليلة العمق. إنت اللي بتحدد السرعة، وتقدر توقف أو تطلع في أي لحظة بإشارة بسيطة، من غير ضغط ولا استعجال. 🤿",
+        en:"Feeling nervous is completely normal 💙 Many first-timers start out a little anxious — and most end up loving it within minutes of being in the water.\n\nA certified instructor stays right next to you the whole time. We start with a simple briefing on the beach, then ease in gradually at a shallow, relaxed depth. You set the pace, and you can stop or go up at any moment with a simple hand signal — no pressure, no rush. 🤿",
+        ru:"Волнение — это совершенно нормально 💙 Многие новички сначала нервничают, а через несколько минут в воде влюбляются в дайвинг.\n\nСертифицированный инструктор всё время рядом. Сначала — простой инструктаж на берегу, затем спокойное, постепенное погружение на небольшой глубине. Темп задаёте вы, а остановиться или подняться можно в любой момент простым жестом — без спешки и давления. 🤿",
+        de:"Aufregung ist völlig normal 💙 Viele Neulinge sind anfangs nervös – und lieben es nach wenigen Minuten im Wasser.\n\nEin zertifizierter Tauchlehrer ist die ganze Zeit direkt bei Ihnen. Wir beginnen mit einer einfachen Einweisung am Strand und gehen dann langsam in flachem, ruhigem Wasser ins Abenteuer. Sie bestimmen das Tempo und können jederzeit mit einem Handzeichen pausieren oder auftauchen – ohne Druck. 🤿",
+        it:"È assolutamente normale sentirsi un po' agitati 💙 Molti principianti all'inizio sono ansiosi — e dopo pochi minuti in acqua se ne innamorano.\n\nUn istruttore certificato resta sempre accanto a te. Si parte con un semplice briefing in spiaggia, poi si entra gradualmente in acque basse e tranquille. Il ritmo lo decidi tu e puoi fermarti o risalire in qualsiasi momento con un semplice segnale — senza fretta né pressione. 🤿"
+      } }
+  ];
+  function faqReply(q){
+    var n=norm(q).replace(/\u2019/g,"'");
+    if (!n || n.length>200) return null;
+    var order;
+    if (/[\u0600-\u06FF]/.test(n)) order=['ar'];
+    else if (/[\u0400-\u04FF]/.test(n)) order=['ru'];
+    else { var s=lang(); order=[s,'en','de','it'].filter(function(x,i,a){ return x!=='ar' && x!=='ru' && a.indexOf(x)===i; }); }
+    for (var i=0;i<FAQ.length;i++){
+      for (var j=0;j<order.length;j++){
+        var re=FAQ[i].re[order[j]];
+        if (re && re.test(n)){
+          var L=order[j], txt=FAQ[i].a[L];
+          if (FAQ[i].cta==='full') txt+='\n\n'+FAQ_CTA[L]+'\nhttps://wa.me/'+WA_NUMBER;
+          else if (FAQ[i].cta==='link') txt+='\nhttps://wa.me/'+WA_NUMBER;
+          return txt;
+        }
+      }
+    }
+    return null;
+  }
+
   /* ---------- AI mode ---------- */
   function stockText(){
     if (typeof STOCK==='undefined' || typeof GEAR==='undefined' || typeof I18N==='undefined') return '';
@@ -2288,6 +2543,8 @@ function initRest(){
     };
     var soc=socialReply(text);
     if (soc){ setTimeout(function(){ done(soc); },250); return; }
+    var faq=faqReply(text);
+    if (faq){ setTimeout(function(){ done(faq); },350+Math.random()*350); return; }
     if (intentOf(text)==='fishing'){ setTimeout(function(){ done(basicAnswer(text)); },300+Math.random()*300); return; }
     if (CHAT_ENDPOINT){
       askAI().then(done).catch(function(e){
